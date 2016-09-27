@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { User } from '../../models';
 import { Store } from '@ngrx/store';
-import { AppState } from '../../reducers';
+import { AppState, getLoggedInUser } from '../../reducers';
 import { LoginActions } from '../../actions';
 import { Router } from '@angular/router';
 

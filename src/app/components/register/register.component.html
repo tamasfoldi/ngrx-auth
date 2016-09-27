@@ -1,8 +1,15 @@
 <h2>Register</h2>
-<div>
-  <input type='text' ref='username' placeholder='Username' [(ngModel)]='user.username' />
-  <input type='password' ref='password' placeholder='Password' [(ngModel)]='user.password' />
-  <button (click)='register()'>Register</button>
-</div>
-isRegistering: {{isRegistering$ | async}}
+<form (ngSubmit)="register()" [formGroup]="registerForm">
+  <div>
+    <label for="email">Email: </label>
+    <input type="text" id="email" placeholder="Email" [formControl]="registerForm.controls['email']" [(ngModel)]="user.username" />
+    <div *ngIf="registerForm.controls['email'].touched && registerForm.controls['email'].hasError('required')">Username is required!</div>
+  </div>
+  <div>
+    <label for="password">Password: </label>
+    <input type="password" id="password" placeholder="Password" [formControl]="registerForm.controls['password']" [(ngModel)]="user.password" />
+    <div *ngIf="registerForm.controls['password'].touched && registerForm.controls['password'].hasError('required')">Password is required!</div>
+  </div>
+  <button type="submit" [disabled]="!registerForm.valid">Register</button>
+</form>
 <a [routerLink]="['../login']">Login</a>

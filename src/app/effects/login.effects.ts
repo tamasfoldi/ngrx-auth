@@ -7,7 +7,7 @@ import 'rxjs/add/operator/filter';
 import 'rxjs/add/operator/mergeMap';
 import 'rxjs/add/operator/switchMap';
 import 'rxjs/add/operator/switchMapTo';
-import 'rxjs/add/operator/toArray';
+import 'rxjs/add/operator/do';
 import 'rxjs/add/observable/of';
 import { Injectable } from '@angular/core';
 import { Actions, Effect } from '@ngrx/effects';
