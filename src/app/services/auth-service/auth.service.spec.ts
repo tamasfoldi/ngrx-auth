@@ -11,9 +11,11 @@ import {
   ResponseOptions,
   RequestMethod
 } from '@angular/http';
+import { ConsoleSpy } from '../../../test-helpers/console-spy';
 
 describe('Service: Auth', () => {
-  let baseUrl = 'https://tamasfoldi.eu.auth0.com'
+  let baseUrl = 'https://tamasfoldi.eu.auth0.com';
+  let fakeConsole, originalConsole;
   beforeEach(() => {
     TestBed.configureTestingModule({
       providers: [
@@ -28,6 +30,10 @@ describe('Service: Auth', () => {
           }, deps: [MockBackend, BaseRequestOptions]
         }]
     });
+
+    fakeConsole = new ConsoleSpy();
+    originalConsole = window.console;
+    (<any>window).console = fakeConsole;
   });
 
   describe('login', () => {
@@ -118,4 +124,23 @@ describe('Service: Auth', () => {
       })));
   });
 
+  it('should log the error on the console', inject([AuthService, MockBackend],
+    fakeAsync((service: AuthService, mockBackend: MockBackend) => {
+      let resp;
+      let logoutUrl = `${baseUrl}/v2/logout?client_id=e5fWdeEcaXWhGBxBQ8hZMIbEuL2w5ASF&returnTo=/`;
+
+      mockBackend.connections.subscribe((c: MockConnection) => {
+        expect(c.request.url).toBe(logoutUrl);
+        expect(c.request.method).toBe(RequestMethod.Get);
+        let error = new Error('Test Error');
+        c.mockError(error);
+      });
+      service.logout().subscribe(() => {
+      }, error => resp = error);
+      tick();
+      expect(fakeConsole.logs[0]).toBe('An error occurred Error: Test Error');
+      expect(resp).toEqual('Test Error');
+    })));
+
+  afterAll(() => (<any>window).console = originalConsole);
 });
