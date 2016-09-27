@@ -17,7 +17,7 @@ import { RegisterActions } from '../actions';
 import { User } from '../models';
 
 @Injectable()
-export class RegisterEffect {
+export class RegisterEffects {
   constructor(
     private updates$: Actions,
     private authService: AuthService,
