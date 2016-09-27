@@ -8,15 +8,18 @@ import { storeFreeze } from 'ngrx-store-freeze';
 import { combineReducers } from '@ngrx/store';
 import loginReducer, * as fromLogin from './login.reducer';
 import registerReducer, * as fromRegiser from './register.reducer';
+import errorReducer, * as fromError from './error.reducer';
 
 export interface AppState {
   login: fromLogin.LoginState;
   register: fromRegiser.RegisterState;
+  error: fromError.ErrorState;
 }
 
 export default compose(storeFreeze, storeLogger(), combineReducers)({
   login: loginReducer,
-  register: registerReducer
+  register: registerReducer,
+  error: errorReducer
 });
 
 export function getLoginState() {
@@ -48,3 +51,8 @@ export function getRegisterState() {
 export function isRegistering() {
   return compose(fromRegiser.isRegistering(), getRegisterState());
 };
+
+export function getErrorState() {
+  return (state$: Observable<AppState>) => state$
+    .select(s => s.error);
+}
