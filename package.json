@@ -27,6 +27,8 @@
     "@ngrx/store": "^2.1.2",
     "@ngrx/store-devtools": "^3.1.0",
     "@ngrx/store-log-monitor": "^3.0.1",
+    "angular2-jwt": "^0.1.23",
+    "auth0-lock": "^10.3.0",
     "core-js": "^2.4.1",
     "ngrx-store-freeze": "^0.1.0",
     "ngrx-store-logger": "^0.1.7",
