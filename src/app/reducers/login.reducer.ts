@@ -6,32 +6,36 @@ import { LoginActions } from '../actions/login.actions';
 import { User } from '../models';
 
 export interface LoginState {
-  isFetching: boolean;
+  isLogging: boolean;
   isLoggedIn: boolean;
   user?: User;
 }
 const initialState: LoginState = {
-  isFetching: false,
+  isLogging: false,
   isLoggedIn: false,
   user: new User()
 };
 
 export default function (state = initialState, action: Action): LoginState {
   switch (action.type) {
+
     case LoginActions.LOGIN: {
       let user: User = action.payload;
 
       return Object.assign({}, state, { isFetching: true, isLoggedIn: false, user: user });
     }
+
     case LoginActions.LOGIN_SUCCESS: {
       let loginData = action.payload;
       let user: User = Object.assign({}, state.user, { id_token: loginData.id_token, access_token: loginData.access_token });
 
       return Object.assign({}, state, { isFetching: false, isLoggedIn: true, user: user });
     }
+
     case LoginActions.LOGIN_FAIL: {
       return Object.assign({}, state, { isFetching: false, isLoggedIn: false });
     }
+
     default: {
       return state;
     }
@@ -41,6 +45,11 @@ export default function (state = initialState, action: Action): LoginState {
 export function isLoggedIn() {
   return (state$: Observable<LoginState>) => state$
     .select(s => s.isLoggedIn);
+};
+
+export function isLoggingIn() {
+  return (state$: Observable<LoginState>) => state$
+    .select(s => s.isLogging);
 };
 
 export function getUser() {

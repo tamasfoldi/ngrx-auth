@@ -45,7 +45,7 @@ export class AuthService {
       'password': password,
       'connection': this.connection
     };
-
+    console.log('asdf');
     return this.http.post(url, registerBody, { headers: this.headers })
       .map(rsp => rsp.json())
       .catch(this.handleError);

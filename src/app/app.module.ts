@@ -9,16 +9,18 @@ import { StoreLogMonitorModule } from '@ngrx/store-log-monitor';
 
 import reducer from './reducers';
 import actions from './actions';
-import { LoginEffects } from './effects/login.effect';
+import { LoginEffects } from './effects/login.effects';
+import { RegisterEffects } from './effects/register.effects';
 import { AuthService } from './services';
 
 import { AppComponent } from './app.component';
 import { LoginComponent } from './components/login/login.component';
+import { RegisterComponent } from './components/register/register.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    LoginComponent
+    LoginComponent, RegisterComponent
   ],
   imports: [
     BrowserModule,
@@ -27,7 +29,8 @@ import { LoginComponent } from './components/login/login.component';
     StoreModule.provideStore(reducer),
     StoreDevtoolsModule.instrumentOnlyWithExtension(),
     StoreLogMonitorModule,
-    EffectsModule.run(LoginEffects)
+    EffectsModule.run(LoginEffects),
+    EffectsModule.run(RegisterEffects)
   ],
   providers: [
     actions,

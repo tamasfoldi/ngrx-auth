@@ -16,14 +16,14 @@ export class LoginComponent {
   loggedInUser$: Observable<User>;
   constructor(
     private store: Store<AppState>,
-    private heroActions: LoginActions) {
+    private loginActions: LoginActions) {
       this.isLoggedIn$ = this.store.let(isLoggedIn());
       this.loggedInUser$ = this.store.let(getLoggedInUser());
   }
 
   login() {
     let usr = Object.assign({}, this.user);
-    this.store.dispatch(this.heroActions.login(usr));
+    this.store.dispatch(this.loginActions.login(usr));
     this.user = new User();
   }
 
