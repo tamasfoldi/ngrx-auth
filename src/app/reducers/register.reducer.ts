@@ -24,10 +24,7 @@ export default function (state = initialState, action: Action): RegisterState {
     }
 
     case RegisterActions.REGISTER_SUCCESS: {
-      let registerData = action.payload;
-      let user: User = Object.assign({}, state.user, { id_token: registerData.id_token, access_token: registerData.access_token });
-
-      return Object.assign({}, state, { isRegistering: false, user: user });
+      return Object.assign({}, state, { isRegistering: false });
     }
 
     case RegisterActions.REGISTER_FAIL: {
