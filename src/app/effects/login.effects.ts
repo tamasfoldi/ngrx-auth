@@ -28,7 +28,10 @@ export class LoginEffects {
     .ofType(LoginActions.LOGIN)
     .map<User>(action => action.payload)
     .switchMap(user => this.authService.login(user.username, user.password)
-      .map(auth => this.loginActions.loginSuccess(auth))
+      .map(auth => {
+        localStorage.setItem('id_token', (<any>auth).token_id);
+        return this.loginActions.loginSuccess(auth);
+      })
       .catch((error) => Observable.of(this.loginActions.loginFail(error)))
     );
 }
