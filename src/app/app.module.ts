@@ -16,11 +16,14 @@ import { AuthService } from './services';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './components/login/login.component';
 import { RegisterComponent } from './components/register/register.component';
+import { routedComponents, routing } from './app.routes';
 
 @NgModule({
   declarations: [
     AppComponent,
-    LoginComponent, RegisterComponent
+    LoginComponent,
+    RegisterComponent,
+    routedComponents
   ],
   imports: [
     BrowserModule,
@@ -30,7 +33,8 @@ import { RegisterComponent } from './components/register/register.component';
     StoreDevtoolsModule.instrumentOnlyWithExtension(),
     StoreLogMonitorModule,
     EffectsModule.run(LoginEffects),
-    EffectsModule.run(RegisterEffects)
+    EffectsModule.run(RegisterEffects),
+    routing
   ],
   providers: [
     actions,

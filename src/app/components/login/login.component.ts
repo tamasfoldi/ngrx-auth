@@ -4,6 +4,7 @@ import { Store } from '@ngrx/store';
 import { AppState, isLoggedIn, getLoggedInUser } from '../../reducers';
 import { Observable } from 'rxjs/Rx';
 import { LoginActions } from '../../actions';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -16,9 +17,10 @@ export class LoginComponent {
   loggedInUser$: Observable<User>;
   constructor(
     private store: Store<AppState>,
-    private loginActions: LoginActions) {
-      this.isLoggedIn$ = this.store.let(isLoggedIn());
-      this.loggedInUser$ = this.store.let(getLoggedInUser());
+    private loginActions: LoginActions,
+    private router: Router) {
+    this.isLoggedIn$ = this.store.let(isLoggedIn());
+    this.loggedInUser$ = this.store.let(getLoggedInUser());
   }
 
   login() {
