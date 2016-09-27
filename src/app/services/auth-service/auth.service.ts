@@ -1,11 +1,13 @@
 import { Injectable } from '@angular/core';
 import { Http, Headers } from '@angular/http';
 import { Observable } from 'rxjs/Rx';
+import 'rxjs/add/operator/map';
+import 'rxjs/add/operator/catch';
 
 @Injectable()
 export class AuthService {
   private clientOptions: Auth0ClientOptions = {
-    domain: 'https://tamasfoldi.eu.auth0.com/',
+    domain: 'https://tamasfoldi.eu.auth0.com',
     clientID: 'e5fWdeEcaXWhGBxBQ8hZMIbEuL2w5ASF',
     callbackURL: ''
   };
@@ -18,7 +20,7 @@ export class AuthService {
 
   constructor(private http: Http) { }
 
-  public login(username: string, password: string): Observable<{}> {
+  login(username: string, password: string): Observable<{}> {
     let url = `${this.clientOptions.domain}/oauth/ro`;
 
     let loginBody = {
@@ -34,7 +36,7 @@ export class AuthService {
       .catch(this.handleError);
   };
 
-  public register(email: string, password: string): Observable<{}> {
+  register(email: string, password: string): Observable<{}> {
     let url = `${this.clientOptions.domain}/dbconnections/signup`;
 
     let registerBody = {
@@ -49,7 +51,7 @@ export class AuthService {
       .catch(this.handleError);
   };
 
-  public logout(returnUrl?: string): Observable<{}> {
+  logout(returnUrl?: string): Observable<{}> {
     let url = `${this.clientOptions.domain}/v2/logout?client_id=${this.clientOptions.clientID}&returnTo=${returnUrl ? returnUrl : '/'}`;
 
     return this.http.get(url, {headers: this.headers})
