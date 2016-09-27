@@ -23,12 +23,7 @@ import { AppComponent } from './app.component';
     FormsModule,
     HttpModule,
     StoreModule.provideStore(reducer),
-    StoreDevtoolsModule.instrumentStore({
-      monitor: useLogMonitor({
-        position: 'right',
-        visible: false
-      })
-    }),
+    StoreDevtoolsModule.instrumentOnlyWithExtension(),
     StoreLogMonitorModule,
     EffectsModule.run(LoginEffects)
   ],
