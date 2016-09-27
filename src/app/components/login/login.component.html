@@ -1,9 +1,15 @@
 <h2>Login</h2>
-<div>
-  <input type='text' ref='username' placeholder='Username' [(ngModel)]='user.username' />
-  <input type='password' ref='password' placeholder='Password' [(ngModel)]='user.password' />
-  <button (click)='login()'>Login</button>
-</div>
-isLoggedIn: {{isLoggedIn$ | async}}
-loggedInUser: {{loggedInUser$ | async | json }}
+<form (ngSubmit)="login()" [formGroup]="loginForm">
+  <div>
+    <label for="username">Username: </label>
+    <input type="text" id="username" placeholder="Username" [formControl]="loginForm.controls['username']" [(ngModel)]="user.username" />
+    <div *ngIf="loginForm.controls['username'].touched && loginForm.controls['username'].hasError('required')">Username is required!</div>
+  </div>
+  <div>
+    <label for="password">Password: </label>
+    <input type="password" id="password" placeholder="Password" [formControl]="loginForm.controls['password']" [(ngModel)]="user.password" />
+    <div *ngIf="loginForm.controls['password'].touched && loginForm.controls['password'].hasError('required')">Password is required!</div>
+  </div>
+  <button type="submit" [disabled]="!loginForm.valid">Login</button>
+</form>
 <a [routerLink]="['../register']">Register</a>

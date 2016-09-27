@@ -1,8 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { User } from '../../models';
 import { Store } from '@ngrx/store';
-import { AppState, isLoggedIn, getLoggedInUser } from '../../reducers';
-import { Observable } from 'rxjs/Rx';
+import { AppState } from '../../reducers';
 import { LoginActions } from '../../actions';
 import { Router } from '@angular/router';
 
@@ -11,16 +11,21 @@ import { Router } from '@angular/router';
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
 })
-export class LoginComponent {
+export class LoginComponent implements OnInit {
   user: User = new User();
-  isLoggedIn$: Observable<boolean>;
-  loggedInUser$: Observable<User>;
+  loginForm: FormGroup;
+
   constructor(
     private store: Store<AppState>,
     private loginActions: LoginActions,
-    private router: Router) {
-    this.isLoggedIn$ = this.store.let(isLoggedIn());
-    this.loggedInUser$ = this.store.let(getLoggedInUser());
+    private router: Router,
+    private fb: FormBuilder) { }
+
+  ngOnInit() {
+    this.loginForm = this.fb.group({
+      'username': ['', Validators.required],
+      'password': ['', Validators.required]
+    });
   }
 
   login() {
