@@ -5,7 +5,7 @@ import { User } from '../models';
 
 @Injectable()
 export class LoginActions {
-  static LOGIN = '[AUTH] Login';
+  static LOGIN = '[LOGIN] Login';
   login(user: User): Action {
     return {
       type: LoginActions.LOGIN,
@@ -13,7 +13,7 @@ export class LoginActions {
     };
   }
 
-  static LOGIN_SUCCESS = '[AUTH] Login Success';
+  static LOGIN_SUCCESS = '[LOGIN] Login Success';
   loginSuccess(loginData: any): Action {
     return {
       type: LoginActions.LOGIN_SUCCESS,
@@ -21,7 +21,7 @@ export class LoginActions {
     };
   }
 
-  static LOGIN_FAIL = '[AUTH] Login Fail';
+  static LOGIN_FAIL = '[LOGIN] Login Fail';
   loginFail(message: string): Action {
     return {
       type: LoginActions.LOGIN_FAIL,
