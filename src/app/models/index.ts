@@ -1,1 +1,1 @@
-export { User } from './user.ts';
+export { User } from './user';
