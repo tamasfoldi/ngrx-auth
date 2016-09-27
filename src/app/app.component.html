@@ -1,10 +1,4 @@
 <h1>
   {{title}}
 </h1>
-<div>
-  <input type='text' ref='username' placeholder='Username' [(ngModel)]='user.username' />
-  <input type='password' ref='password' placeholder='Password' [(ngModel)]='user.password' />
-  <button (click)='login()'>Login </button>
-</div>
-isLoggedIn: {{isLoggedIn$ | async}}
-loggedInUser: {{loggedInUser$ | async | json }}
+<app-login></app-login>
