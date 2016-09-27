@@ -1,7 +1,7 @@
 /* tslint:disable:no-unused-variable */
 
 import { TestBed, async, inject, fakeAsync, tick } from '@angular/core/testing';
-import { AuthService } from './auth.service';
+import { AuthService, AUTH_CLIENT_PROVIDERS } from './auth.service';
 import { MockBackend, MockConnection } from '@angular/http/testing';
 import {
   Http,
@@ -21,6 +21,7 @@ describe('Service: Auth', () => {
       providers: [
         AuthService,
         MockBackend,
+        AUTH_CLIENT_PROVIDERS,
         BaseRequestOptions,
         {
           provide: Http,

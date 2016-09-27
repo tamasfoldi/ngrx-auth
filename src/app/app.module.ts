@@ -11,7 +11,7 @@ import reducer from './reducers';
 import actions from './actions';
 import { LoginEffects } from './effects/login.effects';
 import { RegisterEffects } from './effects/register.effects';
-import { AuthService } from './services';
+import { AuthService, AUTH_CLIENT_PROVIDERS } from './services/auth-service/auth.service';
 
 import { AppComponent } from './app.component';
 import { LoginComponent } from './components/login/login.component';
@@ -39,7 +39,8 @@ import { routedComponents, routing } from './app.routes';
   ],
   providers: [
     actions,
-    AuthService
+    AuthService,
+    AUTH_CLIENT_PROVIDERS
   ],
   bootstrap: [AppComponent]
 })

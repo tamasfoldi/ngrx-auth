@@ -1,11 +1,11 @@
-/* tslint:disable:no-unused-variable */
+// /* tslint:disable:no-unused-variable */
 
-import { TestBed, async } from '@angular/core/testing';
-import { LoginComponent } from './login.component';
+// import { TestBed, async } from '@angular/core/testing';
+// import { LoginComponent } from './login.component';
 
-describe('Component: Login', () => {
-  it('should create an instance', () => {
-    let component = new LoginComponent();
-    expect(component).toBeTruthy();
-  });
-});
+// describe('Component: Login', () => {
+//   it('should create an instance', () => {
+//     let component = new LoginComponent();
+//     expect(component).toBeTruthy();
+//   });
+// });
