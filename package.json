@@ -37,6 +37,7 @@
     "zone.js": "^0.6.23"
   },
   "devDependencies": {
+    "@types/auth0-lock": "^10.0.20",
     "@types/jasmine": "^2.2.30",
     "angular-cli": "1.0.0-beta.15",
     "codelyzer": "~0.0.26",
@@ -47,10 +48,12 @@
     "karma-cli": "^1.0.1",
     "karma-jasmine": "^1.0.2",
     "karma-remap-istanbul": "^0.2.1",
+    "phantomjs-prebuilt": "^2.1.12",
     "process-nextick-args": "^1.0.7",
     "protractor": "4.0.5",
     "ts-node": "1.2.1",
     "tslint": "3.13.0",
-    "typescript": "2.0.2"
+    "typescript": "2.0.2",
+    "wallaby-webpack": "0.0.24"
   }
 }
