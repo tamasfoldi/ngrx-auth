@@ -2,9 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { User } from '../../models';
 import { Store } from '@ngrx/store';
-import { AppState, getLoggedInUser } from '../../reducers';
+import { AppState, getErrorState } from '../../reducers';
 import { LoginActions } from '../../actions';
 import { Router } from '@angular/router';
+import { Observable } from 'rxjs/Rx';
 
 @Component({
   selector: 'app-login',
@@ -14,6 +15,7 @@ import { Router } from '@angular/router';
 export class LoginComponent implements OnInit {
   user: User = new User();
   loginForm: FormGroup;
+  serverError$: Observable<string>;
 
   constructor(
     private store: Store<AppState>,
@@ -26,6 +28,7 @@ export class LoginComponent implements OnInit {
       'username': ['', Validators.required],
       'password': ['', Validators.required]
     });
+    this.serverError$ = this.store.let(getErrorState());
   }
 
   login() {

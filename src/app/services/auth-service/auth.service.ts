@@ -33,7 +33,7 @@ export class AuthService {
 
     return this.http.post(url, loginBody, { headers: this.headers })
       .map(rsp => rsp.json())
-      .catch(this.handleError);
+      .catch(error => this.handleError(JSON.parse(error._body)));
   };
 
   register(email: string, password: string): Observable<{}> {
@@ -48,7 +48,7 @@ export class AuthService {
 
     return this.http.post(url, registerBody, { headers: this.headers })
       .map(rsp => rsp.json())
-      .catch(this.handleError);
+      .catch(error => this.handleError(JSON.parse(error._body)));
   };
 
   logout(returnUrl?: string): Observable<{}> {
@@ -56,7 +56,7 @@ export class AuthService {
 
     return this.http.get(url, {headers: this.headers})
       .map(rsp => rsp.json())
-      .catch(this.handleError);
+      .catch(error => this.handleError(JSON.parse(error._body)));
   };
 
   private handleError(error: any): Promise<any> {

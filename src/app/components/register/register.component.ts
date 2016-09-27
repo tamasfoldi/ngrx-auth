@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { User } from '../../models';
 import { Store } from '@ngrx/store';
-import { AppState, isRegistering } from '../../reducers';
+import { AppState, getErrorState } from '../../reducers';
 import { Observable } from 'rxjs/Rx';
 import { RegisterActions } from '../../actions';
 
@@ -14,6 +14,7 @@ import { RegisterActions } from '../../actions';
 export class RegisterComponent implements OnInit {
   user: User = new User();
   registerForm: FormGroup;
+  serverError$: Observable<string>;
 
   constructor(
     private store: Store<AppState>,
@@ -25,6 +26,7 @@ export class RegisterComponent implements OnInit {
       'email': ['', Validators.required],
       'password': ['', Validators.required]
     });
+    this.serverError$ = this.store.let(getErrorState());
   }
 
   register() {
