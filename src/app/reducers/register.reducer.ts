@@ -3,24 +3,19 @@ import { Action } from '@ngrx/store';
 import 'rxjs/add/operator/map';
 import { Observable } from 'rxjs/Rx';
 import { RegisterActions } from '../actions/register.actions';
-import { User } from '../models';
 
 export interface RegisterState {
   isRegistering: boolean;
-  user?: User;
 }
 const initialState: RegisterState = {
-  isRegistering: false,
-  user: new User()
+  isRegistering: false
 };
 
 export default function (state = initialState, action: Action): RegisterState {
   switch (action.type) {
 
     case RegisterActions.REGISTER: {
-      let user: User = action.payload;
-
-      return Object.assign({}, state, { isRegistering: true, user: user });
+      return Object.assign({}, state, { isRegistering: true });
     }
 
     case RegisterActions.REGISTER_SUCCESS: {
