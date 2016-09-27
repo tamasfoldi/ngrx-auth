@@ -53,7 +53,7 @@ export class AuthService {
     return this.http.post(url, registerBody, { headers: this.headers })
       .map(rsp => rsp.json())
       .catch(error => this.handleError(JSON.parse(error._body)));
-  };
+  };r
 
   logout(returnUrl?: string): Observable<{}> {
     let url = `${this.clientOptions.baseUrl}/v2/logout?client_id=${this.clientOptions.clientID}&returnTo=${returnUrl ? returnUrl : '/'}`;
@@ -64,7 +64,7 @@ export class AuthService {
   };
 
   private handleError(error: any): Promise<any> {
-    console.error('An error occurred', error);
+    console.error('An error occurred', JSON.stringify(error));
     return Promise.reject(error.message || error);
   }
 }

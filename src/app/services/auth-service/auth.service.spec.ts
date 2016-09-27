@@ -133,14 +133,15 @@ describe('Service: Auth', () => {
       mockBackend.connections.subscribe((c: MockConnection) => {
         expect(c.request.url).toBe(logoutUrl);
         expect(c.request.method).toBe(RequestMethod.Get);
-        let error = new Error('Test Error');
-        c.mockError(error);
+        let error = { _body: JSON.stringify({ error: 'Test Error'})};
+        c.mockError(<any>error);
       });
       service.logout().subscribe(() => {
       }, error => resp = error);
       tick();
-      expect(fakeConsole.logs[0]).toBe('An error occurred Error: Test Error');
-      expect(resp).toEqual('Test Error');
+      console.log(fakeConsole.logs[0]);
+      expect(fakeConsole.logs[0]).toBe(`An error occurred {"error":"Test Error"}`);
+      expect(resp).toEqual({ error: 'Test Error'});
     })));
 
   afterAll(() => (<any>window).console = originalConsole);
