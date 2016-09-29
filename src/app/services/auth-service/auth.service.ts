@@ -5,13 +5,13 @@ import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 
 export interface AuthClientOptions {
-    baseUrl: string;
-    clientID: string;
+  baseUrl: string;
+  clientID: string;
 }
 
 export var AUTH_CLIENT_OPTIONS: AuthClientOptions = {
-    baseUrl: 'https://tamasfoldi.eu.auth0.com',
-    clientID: 'e5fWdeEcaXWhGBxBQ8hZMIbEuL2w5ASF'
+  baseUrl: 'https://tamasfoldi.eu.auth0.com',
+  clientID: 'e5fWdeEcaXWhGBxBQ8hZMIbEuL2w5ASF'
 };
 
 @Injectable()
@@ -22,7 +22,7 @@ export class AuthService {
 
   private connection = 'Username-Password-Authentication';
 
-  constructor(private http: Http, @Inject( AUTH_CLIENT_OPTIONS ) private clientOptions: AuthClientOptions) { }
+  constructor(private http: Http, @Inject(AUTH_CLIENT_OPTIONS) private clientOptions: AuthClientOptions) { }
 
   login(username: string, password: string): Observable<{}> {
     let url = `${this.clientOptions.baseUrl}/oauth/ro`;
@@ -53,15 +53,25 @@ export class AuthService {
     return this.http.post(url, registerBody, { headers: this.headers })
       .map(rsp => rsp.json())
       .catch(error => this.handleError(JSON.parse(error._body)));
-  };r
+  };
 
   logout(returnUrl?: string): Observable<{}> {
     let url = `${this.clientOptions.baseUrl}/v2/logout?client_id=${this.clientOptions.clientID}&returnTo=${returnUrl ? returnUrl : '/'}`;
 
-    return this.http.get(url, {headers: this.headers})
+    return this.http.get(url, { headers: this.headers })
       .map(rsp => rsp.json())
       .catch(error => this.handleError(JSON.parse(error._body)));
   };
+
+  auth(id_token: string) {
+    let url = `${this.clientOptions.baseUrl}/tokeninfo`;
+    let authBody = {
+      id_token: id_token
+    };
+    return this.http.post(url, authBody, { headers: this.headers })
+    .map(rsp => rsp.json())
+    .catch(error => this.handleError(JSON.parse(error.body)));
+  }
 
   private handleError(error: any): Promise<any> {
     console.error('An error occurred', JSON.stringify(error));

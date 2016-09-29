@@ -1,4 +1,14 @@
 <h1>
   {{title}}
 </h1>
+<nav>
+  <div *ngIf="!(isAuthed$ | async)">
+    <a [routerLink]="['../register']">Register</a>
+    <a [routerLink]="['../login']">Log in</a>
+  </div>
+  <div *ngIf="isAuthed$ | async">
+    <a [routerLink]="['../user']">{{ authedUsername$ | async }}</a>
+    <a [routerLink]="['../logout']">Log out</a>
+  </div>
+</nav>
 <router-outlet></router-outlet>

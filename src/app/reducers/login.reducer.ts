@@ -19,21 +19,32 @@ const initialState: LoginState = {
 export default function (state = initialState, action: Action): LoginState {
   switch (action.type) {
 
-    case LoginActions.LOGIN: {
-      let user: User = action.payload;
+    case LoginActions.AUTH: {
+      return Object.assign({}, state, { isLogging: true, isLoggedIn: false });
+    }
 
-      return Object.assign({}, state, { isFetching: true, isLoggedIn: false, user: user });
+    case LoginActions.AUTH_SUCCESS: {
+      const user = new User(action.payload.name);
+
+      return Object.assign({}, state, { isLogging: false, isLoggedIn: true, user: user });
+    }
+
+    case LoginActions.LOGIN: {
+      const user: User = action.payload;
+
+      return Object.assign({}, state, { isLogging: true, isLoggedIn: false, user: user });
     }
 
     case LoginActions.LOGIN_SUCCESS: {
-      let loginData = action.payload;
-      let user: User = Object.assign({}, state.user, { id_token: loginData.id_token, access_token: loginData.access_token });
+      const loginData = action.payload;
+      const user: User = Object.assign({}, state.user, { id_token: loginData.id_token, access_token: loginData.access_token });
 
-      return Object.assign({}, state, { isFetching: false, isLoggedIn: true, user: user });
+      return Object.assign({}, state, { isLogging: false, isLoggedIn: true, user: user });
     }
 
+    case LoginActions.AUTH_FAIL:
     case LoginActions.LOGIN_FAIL: {
-      return Object.assign({}, state, { isFetching: false, isLoggedIn: false });
+      return Object.assign({}, state, { isLogging: false, isLoggedIn: false });
     }
 
     default: {

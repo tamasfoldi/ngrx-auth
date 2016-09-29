@@ -28,4 +28,28 @@ export class LoginActions {
       payload: message
     };
   }
+
+  static AUTH = '[LOGIN] Auth';
+  auth(id_token: string): Action {
+    return {
+      type: LoginActions.AUTH,
+      payload: id_token
+    };
+  }
+
+  static AUTH_SUCCESS = '[LOGIN] Auth Success';
+  authSuccess(userData: any): Action {
+    return {
+      type: LoginActions.AUTH_SUCCESS,
+      payload: userData
+    };
+  }
+
+  static AUTH_FAIL = '[LOGIN] Auth Fail';
+  authFail(message: string): Action {
+    return {
+      type: LoginActions.AUTH_FAIL,
+      payload: message
+    };
+  }
 }

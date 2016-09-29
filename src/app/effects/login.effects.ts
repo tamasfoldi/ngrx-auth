@@ -11,7 +11,7 @@ import 'rxjs/add/operator/do';
 import 'rxjs/add/observable/of';
 import { Injectable } from '@angular/core';
 import { Actions, Effect } from '@ngrx/effects';
-
+import { tokenNotExpired } from 'angular2-jwt';
 import { AuthService } from '../services';
 import { LoginActions } from '../actions';
 import { User } from '../models';
@@ -24,12 +24,25 @@ export class LoginEffects {
     private loginActions: LoginActions
   ) { }
 
+  @Effect() loadUserOnInit$ = Observable.of(localStorage.getItem('id_token'))
+    .filter(token => tokenNotExpired())
+    .map(token => this.loginActions.auth(token));
+
+
+  @Effect() auth$ = this.updates$
+    .ofType(LoginActions.AUTH)
+    .map<string>(action => action.payload)
+    .switchMap(token => this.authService.auth(token)
+      .map(userData => this.loginActions.authSuccess(userData))
+      .catch((error) => Observable.of(this.loginActions.authFail(error)))
+    );
+
   @Effect() login$ = this.updates$
     .ofType(LoginActions.LOGIN)
     .map<User>(action => action.payload)
     .switchMap(user => this.authService.login(user.username, user.password)
       .map(auth => {
-        localStorage.setItem('id_token', (<any>auth).token_id);
+        localStorage.setItem('id_token', (<any>auth).id_token);
         return this.loginActions.loginSuccess(auth);
       })
       .catch((error) => Observable.of(this.loginActions.loginFail(error)))
