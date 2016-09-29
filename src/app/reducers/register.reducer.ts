@@ -3,19 +3,21 @@ import { Action } from '@ngrx/store';
 import 'rxjs/add/operator/map';
 import { Observable } from 'rxjs/Rx';
 import { RegisterActions } from '../actions/register.actions';
-
+import { User } from '../models';
 export interface RegisterState {
   isRegistering: boolean;
+  registeringUser: User;
 }
 const initialState: RegisterState = {
-  isRegistering: false
+  isRegistering: false,
+  registeringUser: new User()
 };
 
 export default function (state = initialState, action: Action): RegisterState {
   switch (action.type) {
 
     case RegisterActions.REGISTER: {
-      return Object.assign({}, state, { isRegistering: true });
+      return Object.assign({}, state, { isRegistering: true, registeringUser: action.payload });
     }
 
     case RegisterActions.REGISTER_SUCCESS: {
@@ -23,7 +25,7 @@ export default function (state = initialState, action: Action): RegisterState {
     }
 
     case RegisterActions.REGISTER_FAIL: {
-      return Object.assign({}, state, { isRegistering: false });
+      return Object.assign({}, state, { isRegistering: false, user: new User() });
     }
 
     default: {
@@ -36,3 +38,8 @@ export function isRegistering() {
   return (state$: Observable<RegisterState>) => state$
     .select(s => s.isRegistering);
 };
+
+export function getRegisteringUser() {
+  return (state$: Observable<RegisterState>) => state$
+    .select(s => s.registeringUser);
+}

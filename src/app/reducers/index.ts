@@ -52,6 +52,10 @@ export function isRegistering() {
   return compose(fromRegiser.isRegistering(), getRegisterState());
 };
 
+export function getRegisteringUser() {
+  return compose(fromRegiser.getRegisteringUser(), getRegisterState());
+};
+
 export function getErrorState() {
   return (state$: Observable<AppState>) => state$
     .select(s => s.error);
