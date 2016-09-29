@@ -19,6 +19,11 @@ export default function (state = initialState, action: Action): ErrorState {
       return error_message;
     }
 
+    case RegisterActions.REGISTER_SUCCESS:
+    case LoginActions.LOGIN_SUCCESS: {
+      return '';
+    }
+
     default: {
       return state;
     }
