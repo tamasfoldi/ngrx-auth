@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { User } from '../../models';
 import { Store } from '@ngrx/store';
@@ -19,7 +20,9 @@ export class RegisterComponent implements OnInit {
   constructor(
     private store: Store<AppState>,
     private registerActions: RegisterActions,
-    private fb: FormBuilder) { }
+    private fb: FormBuilder,
+    private router: Router) {
+    }
 
   ngOnInit() {
     this.registerForm = this.fb.group({

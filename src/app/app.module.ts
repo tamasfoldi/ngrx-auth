@@ -18,14 +18,16 @@ import { AuthService, AUTH_CLIENT_PROVIDERS } from './services/auth-service/auth
 import { AppComponent } from './app.component';
 import { LoginComponent } from './components/login/login.component';
 import { RegisterComponent } from './components/register/register.component';
-import { routedComponents, appRoutes } from './app.routes';
+import { routedComponents, appRoutes, AllowSecret } from './app.routes';
+import { DefaultSecretComponent } from './components/default-secret/default-secret.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
     RegisterComponent,
-    routedComponents
+    routedComponents,
+    DefaultSecretComponent
   ],
   imports: [
     BrowserModule,
@@ -43,6 +45,7 @@ import { routedComponents, appRoutes } from './app.routes';
   providers: [
     actions,
     AuthService,
+    AllowSecret,
     AUTH_CLIENT_PROVIDERS
   ],
   bootstrap: [AppComponent]
