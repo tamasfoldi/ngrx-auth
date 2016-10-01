@@ -9,17 +9,20 @@ import { combineReducers } from '@ngrx/store';
 import loginReducer, * as fromLogin from './login.reducer';
 import registerReducer, * as fromRegiser from './register.reducer';
 import errorReducer, * as fromError from './error.reducer';
+import * as fromRouter from '@ngrx/router-store';
 
 export interface AppState {
   login: fromLogin.LoginState;
   register: fromRegiser.RegisterState;
   error: fromError.ErrorState;
+  router: fromRouter.RouterState;
 }
 
 export default compose(storeFreeze, storeLogger(), combineReducers)({
   login: loginReducer,
   register: registerReducer,
-  error: errorReducer
+  error: errorReducer,
+  router: fromRouter.routerReducer
 });
 
 export function getLoginState() {
