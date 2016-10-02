@@ -1,35 +1,5 @@
-import {
-  Routes, RouterModule, CanActivateChild, RouterStateSnapshot,
-  ActivatedRouteSnapshot, Router
-} from '@angular/router';
-import { Injectable } from '@angular/core';
+import { Routes, RouterModule } from '@angular/router';
 import { LoginComponent, RegisterComponent, DefaultSecretComponent } from './components';
-import { tokenNotExpired } from 'angular2-jwt';
-
-@Injectable()
-export class AllowSecret implements CanActivateChild {
-  constructor(private router: Router) { }
-
-  canActivateChild(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean {
-    if (!tokenNotExpired()) {
-      this.router.navigate(['/auth']);
-    }
-    return tokenNotExpired();
-  }
-}
-
-@Injectable()
-export class AllowAuth implements CanActivateChild {
-
-  constructor(private router: Router) { }
-
-  canActivateChild(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean {
-    if (tokenNotExpired()) {
-      this.router.navigate(['/secret']);
-    }
-    return !tokenNotExpired();
-  }
-}
 
 export const appRoutes: Routes = [
   {
@@ -39,7 +9,6 @@ export const appRoutes: Routes = [
   },
   {
     path: 'auth',
-    canActivateChild: [AllowAuth],
     children: [
       { path: '', redirectTo: 'login', pathMatch: 'full' },
       { path: 'login', component: LoginComponent },
@@ -48,7 +17,6 @@ export const appRoutes: Routes = [
   },
   {
     path: 'secret',
-    canActivateChild: [AllowSecret],
     children: [
       { path: '', redirectTo: 'default', pathMatch: 'full' },
       { path: 'default', component: DefaultSecretComponent }
