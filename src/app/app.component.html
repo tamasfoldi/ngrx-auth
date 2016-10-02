@@ -7,7 +7,7 @@
     <a [routerLink]="['auth/login']">Log in</a>
   </div>
   <div *ngIf="isAuthed$ | async">
-    <a [routerLink]="['logout']">Log out</a>
+    <a [routerLink]="['']" (click)="logout($event)">Log out</a>
   </div>
 </nav>
 <router-outlet></router-outlet>

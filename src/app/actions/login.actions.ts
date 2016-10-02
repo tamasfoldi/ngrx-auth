@@ -52,4 +52,25 @@ export class LoginActions {
       payload: message
     };
   }
+
+  static LOGOUT = '[LOGIN] Logout';
+  logout(): Action {
+    return {
+      type: LoginActions.LOGOUT
+    };
+  }
+
+  static LOGOUT_SUCCESS = '[LOGIN] Logout Success';
+  logoutSuccess(): Action {
+    return {
+      type: LoginActions.LOGOUT_SUCCESS
+    };
+  }
+
+  static LOGOUT_FAIL = '[LOGIN] Logout Fail';
+  logoutFail(): Action {
+    return {
+      type: LoginActions.LOGOUT_FAIL
+    };
+  }
 }

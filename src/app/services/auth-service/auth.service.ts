@@ -55,14 +55,6 @@ export class AuthService {
       .catch(error => this.handleError(JSON.parse(error._body)));
   };
 
-  logout(returnUrl?: string): Observable<{}> {
-    let url = `${this.clientOptions.baseUrl}/v2/logout?client_id=${this.clientOptions.clientID}&returnTo=${returnUrl ? returnUrl : '/'}`;
-
-    return this.http.get(url, { headers: this.headers })
-      .map(rsp => rsp.json())
-      .catch(error => this.handleError(JSON.parse(error._body)));
-  };
-
   auth(id_token: string) {
     let url = `${this.clientOptions.baseUrl}/tokeninfo`;
     let authBody = {

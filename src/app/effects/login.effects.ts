@@ -47,4 +47,10 @@ export class LoginEffects {
       })
       .catch((error) => Observable.of(this.loginActions.loginFail(error)))
     );
+
+  @Effect() logout$ = this.updates$
+    .ofType(LoginActions.LOGOUT)
+    .switchMap(() => Observable.of(localStorage.removeItem('id_token'))
+      .map(() => this.loginActions.logoutSuccess())
+    );
 }
