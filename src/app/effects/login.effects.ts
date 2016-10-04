@@ -34,7 +34,10 @@ export class LoginEffects {
     .map<string>(action => action.payload)
     .switchMap(token => this.authService.auth(token)
       .map(userData => this.loginActions.authSuccess(userData))
-      .catch((error) => Observable.of(this.loginActions.authFail(error)))
+      .catch((error) => {
+        localStorage.removeItem('id_token');
+        return Observable.of(this.loginActions.authFail(error));
+      })
     );
 
   @Effect() login$ = this.updates$
