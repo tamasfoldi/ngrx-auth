@@ -22,9 +22,9 @@ export class LoginComponent implements OnInit {
     private loginActions: LoginActions,
     private router: Router,
     private fb: FormBuilder) {
-    this.store.let(getLoginState())
-      .filter(state => state.isLoggedIn)
-      .subscribe(() => this.router.navigate(['/secret']));
+    // this.store.let(getLoginState())
+    //   .filter(state => state.isLoggedIn)
+    //   .subscribe(() => this.router.navigate(['/secret']));
   }
 
   ngOnInit() {
