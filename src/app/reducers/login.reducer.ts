@@ -48,7 +48,6 @@ export default function (state = initialState, action: Action): LoginState {
     }
 
     case LoginActions.LOGOUT_SUCCESS: {
-      console.log('asdfasdf');
       return Object.assign({}, initialState);
     }
 
