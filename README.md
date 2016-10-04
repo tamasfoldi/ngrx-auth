@@ -32,6 +32,6 @@ To get more help on the `angular-cli` use `ng --help` or go check out the [Angul
 
 ## TODO
 * [ ] Lazy load auth and secret
-  * [ ] separate into modules'
+  * [ ] separate into modules
   * [ ] add lazy load to router
-* [ ] Better auth handling (handle auth fail e.g. auth after user deleted)
+
