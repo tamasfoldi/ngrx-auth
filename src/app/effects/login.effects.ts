@@ -11,7 +11,6 @@ import 'rxjs/add/operator/do';
 import 'rxjs/add/observable/of';
 import { Injectable } from '@angular/core';
 import { Actions, Effect } from '@ngrx/effects';
-import { tokenNotExpired } from 'angular2-jwt';
 import { AuthService } from '../services';
 import { LoginActions } from '../actions';
 import { User } from '../models';
@@ -24,8 +23,7 @@ export class LoginEffects {
     private loginActions: LoginActions
   ) { }
 
-  @Effect() loadUserOnInit$ = Observable.of(localStorage.getItem('id_token'))
-    .filter(token => tokenNotExpired())
+  @Effect() loadUserOnInit$ = Observable.of(localStorage.getItem('id_token') || null)
     .map(token => this.loginActions.auth(token));
 
 

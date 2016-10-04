@@ -1,21 +1,29 @@
 import { Injectable } from '@angular/core';
-import { Router, CanLoad, Route } from '@angular/router';
+import { Router, CanLoad, CanActivateChild, Route, ActivatedRouteSnapshot } from '@angular/router';
 import { Observable } from 'rxjs/Rx';
 import { Store } from '@ngrx/store';
 import { AppState, getLoginState } from '../../reducers';
 import 'rxjs/add/operator/take';
-import 'rxjs/add/operator/debounceTime';
+import 'rxjs/add/operator/filter';
 
 @Injectable()
-export class SecretGuard implements CanLoad {
+export class SecretGuard implements CanLoad, CanActivateChild {
   constructor(
     private router: Router,
     private store: Store<AppState>
-  ) {  }
+  ) { }
 
   canLoad(route: Route): Observable<boolean> {
+    return this.guard();
+  }
+
+  canActivateChild(childRoute: ActivatedRouteSnapshot): Observable<boolean> {
+    return this.guard();
+  }
+
+  guard(): Observable<boolean> {
     return this.store.let(getLoginState())
-      .debounceTime(500)
+      .filter(state => state.isLoggedIn !== null)
       .take(1)
       .map(state => state.isLoggedIn ? true : this.handleAuthFail());
   }

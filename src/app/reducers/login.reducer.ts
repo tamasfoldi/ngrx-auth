@@ -12,7 +12,7 @@ export interface LoginState {
 }
 const initialState: LoginState = {
   isLogging: false,
-  isLoggedIn: false,
+  isLoggedIn: null,
   user: new User()
 };
 
