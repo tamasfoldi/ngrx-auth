@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Routes, RouterModule, Router, CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
-import { LoginComponent, RegisterComponent, DefaultSecretComponent } from './components';
+import { LoginComponent, RegisterComponent, DefaultSecretComponent, NonSecretComponent } from './components';
 import { Observable } from 'rxjs/Rx';
 import 'rxjs/add/operator/skip';
 import 'rxjs/add/operator/delay';
@@ -38,6 +38,10 @@ export const appRoutes: Routes = [
       { path: 'login', component: LoginComponent },
       { path: 'register', component: RegisterComponent }
     ]
+  },
+  {
+    path: 'non-secret',
+    component: NonSecretComponent
   },
   {
     path: 'secret',

@@ -2,6 +2,8 @@
   {{title}}
 </h1>
 <nav>
+  <a [routerLink]="['non-secret']">Non Secret</a>
+  <a [routerLink]="['secret']">Secret</a>
   <div *ngIf="!(isAuthed$ | async)">
     <a [routerLink]="['auth/register']">Register</a>
     <a [routerLink]="['auth/login']">Log in</a>
