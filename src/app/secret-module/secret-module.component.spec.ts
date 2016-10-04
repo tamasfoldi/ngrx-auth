@@ -1,11 +1,11 @@
 /* tslint:disable:no-unused-variable */
 
 import { TestBed, async } from '@angular/core/testing';
-import { DefaultSecretComponent } from './default-secret.component';
+import { SecretModuleComponent } from './secret-module.component';
 
-describe('Component: DefaultSecret', () => {
+describe('Component: SecretModule', () => {
   it('should create an instance', () => {
-    let component = new DefaultSecretComponent();
+    let component = new SecretModuleComponent();
     expect(component).toBeTruthy();
   });
 });

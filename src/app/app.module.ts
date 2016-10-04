@@ -14,12 +14,12 @@ import actions from './actions';
 import { LoginEffects } from './effects/login.effects';
 import { RegisterEffects } from './effects/register.effects';
 import { AuthService, AUTH_CLIENT_PROVIDERS } from './services/auth-service/auth.service';
+import { SecretGuard } from './services';
 
 import { AppComponent } from './app.component';
 import { LoginComponent } from './components/login/login.component';
 import { RegisterComponent } from './components/register/register.component';
-import { routedComponents, appRoutes, SecretGuard } from './app.routes';
-import { DefaultSecretComponent } from './components/default-secret/default-secret.component';
+import { routedComponents, appRoutes } from './app.routes';
 import { NonSecretComponent } from './components/non-secret/non-secret.component';
 
 @NgModule({
@@ -28,7 +28,6 @@ import { NonSecretComponent } from './components/non-secret/non-secret.component
     LoginComponent,
     RegisterComponent,
     routedComponents,
-    DefaultSecretComponent,
     NonSecretComponent
   ],
   imports: [
@@ -42,7 +41,7 @@ import { NonSecretComponent } from './components/non-secret/non-secret.component
     EffectsModule.run(LoginEffects),
     EffectsModule.run(RegisterEffects),
     RouterStoreModule.connectRouter(),
-    RouterModule.forRoot(appRoutes, {useHash: false})
+    RouterModule.forRoot(appRoutes, { useHash: false })
   ],
   providers: [
     actions,
