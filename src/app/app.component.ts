@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
+import { Router } from '@angular/router';
 import { Observable } from 'rxjs/Rx';
-import { AppState, isLoggedIn, getUser } from './reducers';
+import { AppState, isLoggedIn, getUser, getLoginState } from './reducers';
 import { LoginActions } from './actions';
 
 @Component({
@@ -16,8 +17,14 @@ export class AppComponent implements OnInit {
 
   constructor(
     private store: Store<AppState>,
-    private loginActions: LoginActions
-  ) { }
+    private loginActions: LoginActions,
+    private router: Router
+
+  ) {
+    this.store.let(getLoginState())
+      .filter(state => state.isLoggedIn)
+      .subscribe(() => this.router.navigate(['/secret']));
+  }
 
   ngOnInit() {
     this.isAuthed$ = this.store.let(isLoggedIn());
