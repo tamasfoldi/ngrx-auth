@@ -7,7 +7,7 @@ import 'rxjs/add/operator/take';
 import 'rxjs/add/operator/filter';
 
 @Injectable()
-export class SecretGuard implements CanLoad, CanActivateChild {
+export class AuthGuardService implements CanLoad, CanActivateChild {
   constructor(
     private router: Router,
     private store: Store<AppState>

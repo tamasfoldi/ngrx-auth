@@ -14,7 +14,7 @@ import actions from './actions';
 import { LoginEffects } from './effects/login.effects';
 import { RegisterEffects } from './effects/register.effects';
 import { AuthService, AUTH_CLIENT_PROVIDERS } from './services/auth-service/auth.service';
-import { SecretGuard } from './services';
+import { AuthGuardService } from './services';
 
 import { AppComponent } from './app.component';
 import { LoginComponent } from './components/login/login.component';
@@ -46,7 +46,7 @@ import { NonSecretComponent } from './components/non-secret/non-secret.component
   providers: [
     actions,
     AuthService,
-    SecretGuard,
+    AuthGuardService,
     AUTH_CLIENT_PROVIDERS
   ],
   bootstrap: [AppComponent]

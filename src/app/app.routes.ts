@@ -1,6 +1,6 @@
 import { Routes, RouterModule} from '@angular/router';
 import { LoginComponent, RegisterComponent, NonSecretComponent } from './components';
-import { SecretGuard } from './services';
+import { AuthGuardService } from './services';
 
 export const appRoutes: Routes = [
   {
@@ -23,7 +23,7 @@ export const appRoutes: Routes = [
   {
     path: 'secret',
     loadChildren: 'app/secret-module/secret-module.module#SecretModuleModule',
-    canLoad: [SecretGuard]
+    canLoad: [AuthGuardService]
   }
 ];
 
