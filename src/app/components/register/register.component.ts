@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { User } from '../../models';
 import { Store } from '@ngrx/store';
-import { AppState, getErrorState } from '../../reducers';
+import { AppState, getErrorState, isRegistering } from '../../reducers';
 import { Observable } from 'rxjs/Rx';
 import { RegisterActions } from '../../actions';
 
@@ -16,6 +16,7 @@ export class RegisterComponent implements OnInit {
   user: User = new User();
   registerForm: FormGroup;
   serverError$: Observable<string>;
+  isRegistering$: Observable<boolean>;
 
   constructor(
     private store: Store<AppState>,
@@ -30,6 +31,7 @@ export class RegisterComponent implements OnInit {
       'password': ['', Validators.required]
     });
     this.serverError$ = this.store.let(getErrorState());
+    this.isRegistering$ = this.store.let(isRegistering());
   }
 
   register() {

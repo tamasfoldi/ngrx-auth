@@ -52,7 +52,8 @@ export function getRegisterState() {
 }
 
 export function isRegistering() {
-  return compose(fromRegiser.isRegistering(), getRegisterState());
+  return (state$: Observable<AppState>) => state$
+    .map(s => s.login.isLogging || s.register.isRegistering);
 };
 
 export function getRegisteringUser() {

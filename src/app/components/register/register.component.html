@@ -1,5 +1,5 @@
 <h2>Register</h2>
-<form (ngSubmit)="register()" [formGroup]="registerForm">
+<form (ngSubmit)="register()" [formGroup]="registerForm" *ngIf="!(isRegistering$ | async)">
   <div>
     <label for="email">Email: </label>
     <input type="text" id="email" placeholder="Email" [formControl]="registerForm.controls['email']" [(ngModel)]="user.username" />
@@ -11,5 +11,8 @@
     <div *ngIf="registerForm.controls['password'].touched && registerForm.controls['password'].hasError('required')">Password is required!</div>
   </div>
   <button type="submit" [disabled]="!registerForm.valid">Register</button>
+  {{serverError$ | async }}
 </form>
-{{serverError$ | async }}
+<div *ngIf="isRegistering$ | async">
+  Registering...
+</div>

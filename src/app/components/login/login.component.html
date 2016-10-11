@@ -1,5 +1,5 @@
 <h2>Login</h2>
-<form (ngSubmit)="login()" [formGroup]="loginForm">
+<form (ngSubmit)="login()" [formGroup]="loginForm" *ngIf="!(isLogging$ | async)">
   <div>
     <label for="username">Username: </label>
     <input type="text" id="username" placeholder="Username" [formControl]="loginForm.controls['username']" [(ngModel)]="user.username" />
@@ -11,6 +11,9 @@
     <div *ngIf="loginForm.controls['password'].touched && loginForm.controls['password'].hasError('required')">Password is required!</div>
   </div>
   <button type="submit" [disabled]="!loginForm.valid">Login</button>
+  {{serverError$ | async }}
 </form>
-{{serverError$ | async }}
+<div *ngIf="isLogging$ | async">
+  Logging in...
+</div>
 
