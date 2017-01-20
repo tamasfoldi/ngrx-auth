@@ -32,7 +32,6 @@ export class LoginEffects {
       .map(userData => new login.AuthSuccessAction(userData))
       .catch((error) => {
         localStorage.removeItem('id_token');
-        this.authGuardService.handleAuthFail();
         return Observable.of(new login.AuthFailAction(error));
       })
     );
@@ -52,5 +51,6 @@ export class LoginEffects {
     .ofType(login.ActionTypes.LOGOUT)
     .switchMap(() => Observable.of(localStorage.removeItem('id_token'))
       .map(() => new login.LogoutSuccessAction())
+      .catch((error) => Observable.of(new login.LogoutFailAction()))
     );
 }

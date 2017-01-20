@@ -22,7 +22,11 @@ export class AuthGuardService implements CanLoad, CanActivateChild {
   }
 
   guard(): Observable<boolean> {
-    return Observable.of(tokenNotExpired());
+    if (tokenNotExpired()) {
+      return Observable.of(true);
+    } else {
+      return Observable.of(this.handleAuthFail());
+    }
   }
 
   handleAuthFail(): boolean {
