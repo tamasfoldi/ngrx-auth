@@ -9,7 +9,7 @@ export interface AuthClientOptions {
   clientID: string;
 }
 
-export var AUTH_CLIENT_OPTIONS: AuthClientOptions = {
+export let AUTH_CLIENT_OPTIONS: AuthClientOptions = {
   baseUrl: 'https://tamasfoldi.eu.auth0.com',
   clientID: 'e5fWdeEcaXWhGBxBQ8hZMIbEuL2w5ASF'
 };
@@ -25,9 +25,9 @@ export class AuthService {
   constructor(private http: Http, @Inject(AUTH_CLIENT_OPTIONS) private clientOptions: AuthClientOptions) { }
 
   login(username: string, password: string): Observable<{}> {
-    let url = `${this.clientOptions.baseUrl}/oauth/ro`;
+    const url = `${this.clientOptions.baseUrl}/oauth/ro`;
 
-    let loginBody = {
+    const loginBody = {
       'client_id': this.clientOptions.clientID,
       'username': username,
       'password': password,
@@ -41,9 +41,9 @@ export class AuthService {
   };
 
   register(email: string, password: string): Observable<{}> {
-    let url = `${this.clientOptions.baseUrl}/dbconnections/signup`;
+    const url = `${this.clientOptions.baseUrl}/dbconnections/signup`;
 
-    let registerBody = {
+    const registerBody = {
       'client_id': this.clientOptions.clientID,
       'email': email,
       'password': password,
@@ -56,13 +56,13 @@ export class AuthService {
   };
 
   auth(id_token: string) {
-    let url = `${this.clientOptions.baseUrl}/tokeninfo`;
-    let authBody = {
+    const url = `${this.clientOptions.baseUrl}/tokeninfo`;
+    const authBody = {
       id_token: id_token
     };
     return this.http.post(url, authBody, { headers: this.headers })
-    .map(rsp => rsp.json())
-    .catch(error => this.handleError(JSON.parse(error.body)));
+      .map(rsp => rsp.json())
+      .catch(error => this.handleError(JSON.parse(error.body)));
   }
 
   private handleError(error: any): Promise<any> {
@@ -71,7 +71,7 @@ export class AuthService {
   }
 }
 
-export var AUTH_CLIENT_PROVIDERS = [{
+export let AUTH_CLIENT_PROVIDERS = [{
   provide: AUTH_CLIENT_OPTIONS,
   useValue: AUTH_CLIENT_OPTIONS
 }];

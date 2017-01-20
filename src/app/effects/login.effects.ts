@@ -12,7 +12,7 @@ import 'rxjs/add/observable/of';
 import { Injectable } from '@angular/core';
 import { Actions, Effect } from '@ngrx/effects';
 import { Action } from '@ngrx/store';
-import { AuthService } from '../services';
+import { AuthService, AuthGuardService } from '../services';
 import * as login from '../actions/login.actions';
 import { User } from '../models';
 
@@ -20,7 +20,8 @@ import { User } from '../models';
 export class LoginEffects {
   constructor(
     private actions$: Actions,
-    private authService: AuthService
+    private authService: AuthService,
+    private authGuardService: AuthGuardService
   ) { }
 
   @Effect() auth$: Observable<Action> = this.actions$
@@ -31,6 +32,7 @@ export class LoginEffects {
       .map(userData => new login.AuthSuccessAction(userData))
       .catch((error) => {
         localStorage.removeItem('id_token');
+        this.authGuardService.handleAuthFail();
         return Observable.of(new login.AuthFailAction(error));
       })
     );
