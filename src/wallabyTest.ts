@@ -8,9 +8,9 @@ import 'zone.js/dist/async-test';
 import 'zone.js/dist/fake-async-test';
 
 
-let testing = require('@angular/core/testing');
-let testingBrowser = require('@angular/platform-browser-dynamic/testing');
+const testing = require('@angular/core/testing');
+const testingBrowser = require('@angular/platform-browser-dynamic/testing');
 
 testing.getTestBed().initTestEnvironment(
-    testingBrowser.BrowserDynamicTestingModule,
-    testingBrowser.platformBrowserDynamicTesting());
+  testingBrowser.BrowserDynamicTestingModule,
+  testingBrowser.platformBrowserDynamicTesting());
