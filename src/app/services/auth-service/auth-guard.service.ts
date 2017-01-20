@@ -5,7 +5,7 @@ import { Store } from '@ngrx/store';
 import { AppState, getLoginState } from '../../reducers';
 import 'rxjs/add/operator/take';
 import 'rxjs/add/operator/filter';
-
+import { tokenNotExpired } from 'angular2-jwt';
 @Injectable()
 export class AuthGuardService implements CanLoad, CanActivateChild {
   constructor(
@@ -22,10 +22,7 @@ export class AuthGuardService implements CanLoad, CanActivateChild {
   }
 
   guard(): Observable<boolean> {
-    return this.store.let(getLoginState())
-      .filter(state => state.isLoggedIn !== null)
-      .take(1)
-      .map(state => state.isLoggedIn ? true : this.handleAuthFail());
+    return Observable.of(tokenNotExpired());
   }
 
   handleAuthFail(): boolean {

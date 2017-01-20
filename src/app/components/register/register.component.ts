@@ -5,7 +5,7 @@ import { User } from '../../models';
 import { Store } from '@ngrx/store';
 import { AppState, getErrorState, isRegistering } from '../../reducers';
 import { Observable } from 'rxjs/Rx';
-import { RegisterActions } from '../../actions';
+import * as register from '../../actions/register.actions';
 
 @Component({
   selector: 'app-register',
@@ -20,10 +20,9 @@ export class RegisterComponent implements OnInit {
 
   constructor(
     private store: Store<AppState>,
-    private registerActions: RegisterActions,
     private fb: FormBuilder,
     private router: Router) {
-    }
+  }
 
   ngOnInit() {
     this.registerForm = this.fb.group({
@@ -35,8 +34,8 @@ export class RegisterComponent implements OnInit {
   }
 
   register() {
-    let usr = Object.assign({}, this.user);
-    this.store.dispatch(this.registerActions.register(usr));
+    const usr = Object.assign({}, this.user);
+    this.store.dispatch(new register.RegisterAction(usr));
     this.user = new User();
   }
 

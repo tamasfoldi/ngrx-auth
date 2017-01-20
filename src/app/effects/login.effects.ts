@@ -11,47 +11,44 @@ import 'rxjs/add/operator/do';
 import 'rxjs/add/observable/of';
 import { Injectable } from '@angular/core';
 import { Actions, Effect } from '@ngrx/effects';
+import { Action } from '@ngrx/store';
 import { AuthService } from '../services';
-import { LoginActions } from '../actions';
+import * as login from '../actions/login.actions';
 import { User } from '../models';
 
 @Injectable()
 export class LoginEffects {
   constructor(
-    private updates$: Actions,
-    private authService: AuthService,
-    private loginActions: LoginActions
+    private actions$: Actions,
+    private authService: AuthService
   ) { }
 
-  @Effect() loadUserOnInit$ = Observable.of(localStorage.getItem('id_token') || null)
-    .map(token => this.loginActions.auth(token));
-
-
-  @Effect() auth$ = this.updates$
-    .ofType(LoginActions.AUTH)
-    .map<string>(action => action.payload)
+  @Effect() auth$: Observable<Action> = this.actions$
+    .ofType(login.ActionTypes.AUTH)
+    .startWith(new login.AuthAction(localStorage.getItem('id_token') || null))
+    .map(action => action.payload)
     .switchMap(token => this.authService.auth(token)
-      .map(userData => this.loginActions.authSuccess(userData))
+      .map(userData => new login.AuthSuccessAction(userData))
       .catch((error) => {
         localStorage.removeItem('id_token');
-        return Observable.of(this.loginActions.authFail(error));
+        return Observable.of(new login.AuthFailAction(error));
       })
     );
 
-  @Effect() login$ = this.updates$
-    .ofType(LoginActions.LOGIN)
-    .map<User>(action => action.payload)
+  @Effect() login$: Observable<Action> = this.actions$
+    .ofType(login.ActionTypes.LOGIN)
+    .map(action => action.payload)
     .switchMap(user => this.authService.login(user.username, user.password)
       .map(auth => {
         localStorage.setItem('id_token', (<any>auth).id_token);
-        return this.loginActions.loginSuccess(auth);
+        return new login.LoginSuccessAction(auth);
       })
-      .catch((error) => Observable.of(this.loginActions.loginFail(error)))
+      .catch((error) => Observable.of(new login.LoginFailAction(error)))
     );
 
-  @Effect() logout$ = this.updates$
-    .ofType(LoginActions.LOGOUT)
+  @Effect() logout$: Observable<Action> = this.actions$
+    .ofType(login.ActionTypes.LOGOUT)
     .switchMap(() => Observable.of(localStorage.removeItem('id_token'))
-      .map(() => this.loginActions.logoutSuccess())
+      .map(() => new login.LogoutSuccessAction())
     );
 }

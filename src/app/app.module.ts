@@ -10,7 +10,6 @@ import { StoreLogMonitorModule } from '@ngrx/store-log-monitor';
 import { RouterStoreModule } from '@ngrx/router-store';
 
 import reducer from './reducers';
-import actions from './actions';
 import { LoginEffects } from './effects/login.effects';
 import { RegisterEffects } from './effects/register.effects';
 import { AuthService, AUTH_CLIENT_PROVIDERS } from './services/auth-service/auth.service';
@@ -44,7 +43,6 @@ import { NonSecretComponent } from './components/non-secret/non-secret.component
     RouterModule.forRoot(appRoutes, { useHash: false })
   ],
   providers: [
-    actions,
     AuthService,
     AuthGuardService,
     AUTH_CLIENT_PROVIDERS

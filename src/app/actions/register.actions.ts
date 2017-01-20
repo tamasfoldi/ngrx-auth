@@ -1,31 +1,43 @@
-/* tslint:disable:member-ordering */
-import { Injectable } from '@angular/core';
 import { Action } from '@ngrx/store';
 import { User } from '../models';
 
-@Injectable()
-export class RegisterActions {
-  static REGISTER = '[REGISTER] Register';
-  register(user: User): Action {
-    return {
-      type: RegisterActions.REGISTER,
-      payload: user
-    };
-  }
+import { type } from '../util';
 
-  static REGISTER_SUCCESS = '[REGISTER] Register Success';
-  registerSuccess(registerData: any): Action {
-    return {
-      type: RegisterActions.REGISTER_SUCCESS,
-      payload: registerData
-    };
-  }
+export const ActionTypes = {
+  REGISTER: type('[REGISTER] Register'),
+  REGISTER_SUCCESS: type('[REGISTER] Register Success'),
+  REGISTER_FAIL: type('[REGISTER] Register Fail'),
+};
 
-  static REGISTER_FAIL = '[REGISTER] Register Fail';
-  registerFail(message: string): Action {
-    return {
-      type: RegisterActions.REGISTER_FAIL,
-      payload: message
-    };
+export class RegisterAction implements Action {
+  type = ActionTypes.REGISTER;
+  payload: User;
+
+  constructor(user: User) {
+    this.payload = user;
   }
 }
+
+export class RegisterSuccessAction implements Action {
+  type = ActionTypes.REGISTER_SUCCESS;
+  payload: any;
+
+  constructor(registerData: any) {
+    this.payload = registerData;
+  }
+}
+
+export class RegisterFailAction implements Action {
+  type = ActionTypes.REGISTER_FAIL;
+  payload: string;
+
+  constructor(message: string) {
+    this.payload = message;
+  }
+}
+
+export type Actions
+  = RegisterAction
+  | RegisterSuccessAction
+  | RegisterFailAction;
+

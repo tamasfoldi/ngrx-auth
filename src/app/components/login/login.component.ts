@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { User } from '../../models';
 import { Store } from '@ngrx/store';
 import { AppState, getErrorState, isLoggingIn } from '../../reducers';
-import { LoginActions } from '../../actions';
+import * as login from '../../actions/login.actions';
 import { Observable } from 'rxjs/Rx';
 
 @Component({
@@ -18,7 +18,6 @@ export class LoginComponent implements OnInit {
   isLogging$: Observable<boolean>;
   constructor(
     private store: Store<AppState>,
-    private loginActions: LoginActions,
     private fb: FormBuilder) {
 
   }
@@ -33,8 +32,8 @@ export class LoginComponent implements OnInit {
   }
 
   login() {
-    let usr = Object.assign({}, this.user);
-    this.store.dispatch(this.loginActions.login(usr));
+    const usr = Object.assign({}, this.user);
+    this.store.dispatch(new login.LoginAction(usr));
     this.user = new User();
   }
 

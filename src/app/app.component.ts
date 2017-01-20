@@ -3,7 +3,7 @@ import { Store } from '@ngrx/store';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs/Rx';
 import { AppState, isLoggedIn, getUser, getLoginState } from './reducers';
-import { LoginActions } from './actions';
+import * as login from './actions/login.actions';
 
 @Component({
   selector: 'app-root',
@@ -17,7 +17,6 @@ export class AppComponent implements OnInit {
 
   constructor(
     private store: Store<AppState>,
-    private loginActions: LoginActions,
     private router: Router
 
   ) {
@@ -33,6 +32,6 @@ export class AppComponent implements OnInit {
 
   logout(event: MouseEvent) {
     event.preventDefault();
-    this.store.dispatch(this.loginActions.logout());
+    this.store.dispatch(new login.LogoutAction());
   }
 }

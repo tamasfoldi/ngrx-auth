@@ -11,34 +11,33 @@ import 'rxjs/add/operator/toArray';
 import 'rxjs/add/observable/of';
 import { Injectable } from '@angular/core';
 import { Actions, Effect } from '@ngrx/effects';
-import { Store } from '@ngrx/store';
+import { Store, Action } from '@ngrx/store';
 import { AppState, getRegisteringUser } from '../reducers';
 import { AuthService } from '../services';
-import { RegisterActions, LoginActions } from '../actions';
+import * as register from '../actions/register.actions';
+import * as login from '../actions/login.actions';
 import { User } from '../models';
 
 @Injectable()
 export class RegisterEffects {
   constructor(
-    private updates$: Actions,
+    private actions$: Actions,
     private authService: AuthService,
-    private registerActions: RegisterActions,
-    private loginActions: LoginActions,
     private store: Store<AppState>,
   ) { }
 
-  @Effect() register$ = this.updates$
-    .ofType(RegisterActions.REGISTER)
-    .map<User>(action => action.payload)
+  @Effect() register$ = this.actions$
+    .ofType(register.ActionTypes.REGISTER)
+    .map(action => action.payload)
     .switchMap(user => this.authService.register(user.username, user.password)
-      .map(auth => this.registerActions.registerSuccess(auth))
-      .catch((error) => Observable.of(this.registerActions.registerFail(error)))
+      .map(auth => new register.RegisterSuccessAction(auth))
+      .catch((error) => Observable.of(new register.RegisterFailAction(error)))
     );
 
-  @Effect() registerSuccess$ = this.updates$
-    .ofType(RegisterActions.REGISTER_SUCCESS)
+  @Effect() registerSuccess$ = this.actions$
+    .ofType(register.ActionTypes.REGISTER_SUCCESS)
     .switchMap(() => this.store.let(getRegisteringUser())
-      .map(user => this.loginActions.login(user))
+      .map(user => new login.LoginAction(user))
     );
 
 }

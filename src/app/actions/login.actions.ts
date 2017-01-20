@@ -1,76 +1,101 @@
-/* tslint:disable:member-ordering */
-import { Injectable } from '@angular/core';
 import { Action } from '@ngrx/store';
 import { User } from '../models';
 
-@Injectable()
-export class LoginActions {
-  static LOGIN = '[LOGIN] Login';
-  login(user: User): Action {
-    return {
-      type: LoginActions.LOGIN,
-      payload: user
-    };
-  }
+import { type } from '../util';
 
-  static LOGIN_SUCCESS = '[LOGIN] Login Success';
-  loginSuccess(loginData: any): Action {
-    return {
-      type: LoginActions.LOGIN_SUCCESS,
-      payload: loginData
-    };
-  }
+export const ActionTypes = {
+  LOGIN: type('[LOGIN] Login'),
+  LOGIN_SUCCESS: type('[LOGIN] Login Success'),
+  LOGIN_FAIL: type('[LOGIN] Login Fail'),
 
-  static LOGIN_FAIL = '[LOGIN] Login Fail';
-  loginFail(message: string): Action {
-    return {
-      type: LoginActions.LOGIN_FAIL,
-      payload: message
-    };
-  }
+  AUTH: type('[LOGIN] Auth'),
+  AUTH_SUCCESS: type('[LOGIN] Auth Success'),
+  AUTH_FAIL: type('[LOGIN] Auth Fail'),
 
-  static AUTH = '[LOGIN] Auth';
-  auth(id_token: string): Action {
-    return {
-      type: LoginActions.AUTH,
-      payload: id_token
-    };
-  }
+  LOGOUT: type('[LOGIN] Logout'),
+  LOGOUT_SUCCESS: type('[LOGIN] Logout Success'),
+  LOGOUT_FAIL: type('[LOGIN] Logout Fail')
+};
 
-  static AUTH_SUCCESS = '[LOGIN] Auth Success';
-  authSuccess(userData: any): Action {
-    return {
-      type: LoginActions.AUTH_SUCCESS,
-      payload: userData
-    };
-  }
+export class LoginAction implements Action {
+  type = ActionTypes.LOGIN;
+  payload: User;
 
-  static AUTH_FAIL = '[LOGIN] Auth Fail';
-  authFail(message: string): Action {
-    return {
-      type: LoginActions.AUTH_FAIL,
-      payload: message
-    };
-  }
-
-  static LOGOUT = '[LOGIN] Logout';
-  logout(): Action {
-    return {
-      type: LoginActions.LOGOUT
-    };
-  }
-
-  static LOGOUT_SUCCESS = '[LOGIN] Logout Success';
-  logoutSuccess(): Action {
-    return {
-      type: LoginActions.LOGOUT_SUCCESS
-    };
-  }
-
-  static LOGOUT_FAIL = '[LOGIN] Logout Fail';
-  logoutFail(): Action {
-    return {
-      type: LoginActions.LOGOUT_FAIL
-    };
+  constructor(user: User) {
+    this.payload = user;
   }
 }
+
+export class LoginSuccessAction implements Action {
+  type = ActionTypes.LOGIN_SUCCESS;
+  payload: any;
+
+  constructor(loginData: any) {
+    this.payload = loginData;
+  }
+}
+
+export class LoginFailAction implements Action {
+  type = ActionTypes.LOGIN_FAIL;
+  payload: string;
+
+  constructor(message: string) {
+    this.payload = message;
+  }
+}
+
+export class AuthAction implements Action {
+  type = ActionTypes.AUTH;
+  payload: string;
+
+  constructor(id_token: string) {
+    this.payload = id_token;
+  }
+}
+
+export class AuthSuccessAction implements Action {
+  type = ActionTypes.AUTH_SUCCESS;
+  payload: any;
+
+  constructor(userData: any) {
+    this.payload = userData;
+  }
+}
+
+export class AuthFailAction implements Action {
+  type = ActionTypes.AUTH_FAIL;
+  payload: string;
+
+  constructor(message: string) {
+    this.payload = message;
+  }
+}
+
+export class LogoutAction implements Action {
+  type = ActionTypes.LOGOUT;
+
+  constructor() { }
+}
+
+export class LogoutSuccessAction implements Action {
+  type = ActionTypes.LOGOUT_SUCCESS;
+
+  constructor() { }
+}
+
+export class LogoutFailAction implements Action {
+  type = ActionTypes.LOGOUT_FAIL;
+
+  constructor() { }
+}
+
+export type Actions
+  = LoginAction
+  | LoginSuccessAction
+  | LoginFailAction
+  | AuthAction
+  | AuthSuccessAction
+  | AuthFailAction
+  | LogoutAction
+  | LogoutSuccessAction
+  | LogoutFailAction;

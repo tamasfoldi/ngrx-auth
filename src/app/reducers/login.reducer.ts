@@ -2,7 +2,7 @@
 import { Action } from '@ngrx/store';
 import 'rxjs/add/operator/map';
 import { Observable } from 'rxjs/Rx';
-import { LoginActions } from '../actions/login.actions';
+import * as login from '../actions/login.actions';
 import { User } from '../models';
 
 export interface LoginState {
@@ -19,35 +19,35 @@ const initialState: LoginState = {
 export default function (state = initialState, action: Action): LoginState {
   switch (action.type) {
 
-    case LoginActions.AUTH: {
+    case login.ActionTypes.AUTH: {
       return Object.assign({}, state, { isLogging: true, isLoggedIn: false });
     }
 
-    case LoginActions.AUTH_SUCCESS: {
+    case login.ActionTypes.AUTH_SUCCESS: {
       const user = new User(action.payload.name);
 
       return Object.assign({}, state, { isLogging: false, isLoggedIn: true, user: user });
     }
 
-    case LoginActions.LOGIN: {
+    case login.ActionTypes.LOGIN: {
       const user: User = action.payload;
 
       return Object.assign({}, state, { isLogging: true, isLoggedIn: false, user: user });
     }
 
-    case LoginActions.LOGIN_SUCCESS: {
+    case login.ActionTypes.LOGIN_SUCCESS: {
       const loginData = action.payload;
       const user: User = Object.assign({}, state.user, { id_token: loginData.id_token, access_token: loginData.access_token });
 
       return Object.assign({}, state, { isLogging: false, isLoggedIn: true, user: user });
     }
 
-    case LoginActions.AUTH_FAIL:
-    case LoginActions.LOGIN_FAIL: {
+    case login.ActionTypes.AUTH_FAIL:
+    case login.ActionTypes.LOGIN_FAIL: {
       return Object.assign({}, state, { isLogging: false, isLoggedIn: false });
     }
 
-    case LoginActions.LOGOUT_SUCCESS: {
+    case login.ActionTypes.LOGOUT_SUCCESS: {
       return Object.assign({}, initialState);
     }
 
