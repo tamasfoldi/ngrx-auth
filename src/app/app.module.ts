@@ -7,7 +7,7 @@ import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { StoreLogMonitorModule } from '@ngrx/store-log-monitor';
-import { RouterStoreModule } from '@ngrx/router-store';
+import { connectToStore, StoreConnectedToRouter } from './router-store';
 
 import reducer from './reducers';
 import { LoginEffects } from './effects/login.effects';
@@ -35,12 +35,12 @@ import { NonSecretComponent } from './components/non-secret/non-secret.component
     ReactiveFormsModule,
     HttpModule,
     StoreModule.provideStore(reducer),
+    RouterModule.forRoot(connectToStore(appRoutes), { useHash: false }),
     StoreDevtoolsModule.instrumentOnlyWithExtension(),
     StoreLogMonitorModule,
+    StoreConnectedToRouter.provideStore(reducer),
     EffectsModule.run(LoginEffects),
     EffectsModule.run(RegisterEffects),
-    RouterStoreModule.connectRouter(),
-    RouterModule.forRoot(appRoutes, { useHash: false })
   ],
   providers: [
     AuthService,

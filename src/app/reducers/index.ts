@@ -1,28 +1,28 @@
 import '@ngrx/core/add/operator/select';
 import 'rxjs/add/operator/switchMap';
 import 'rxjs/add/operator/let';
+import { RouterStateSnapshot } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
 import { compose } from '@ngrx/core/compose';
 import { storeLogger } from 'ngrx-store-logger';
-import { storeFreeze } from 'ngrx-store-freeze';
 import { combineReducers } from '@ngrx/store';
 import loginReducer, * as fromLogin from './login.reducer';
 import registerReducer, * as fromRegiser from './register.reducer';
 import errorReducer, * as fromError from './error.reducer';
-import * as fromRouter from '@ngrx/router-store';
+import routerReducer from './router.reducer';
 
 export interface AppState {
   login: fromLogin.LoginState;
   register: fromRegiser.RegisterState;
   error: fromError.ErrorState;
-  router: fromRouter.RouterState;
+  router: RouterStateSnapshot;
 }
 
-export default compose(storeFreeze, storeLogger(), combineReducers)({
+export default compose(storeLogger(), combineReducers)({
   login: loginReducer,
   register: registerReducer,
   error: errorReducer,
-  router: fromRouter.routerReducer
+  router: routerReducer
 });
 
 export function getLoginState() {

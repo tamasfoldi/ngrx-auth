@@ -1,4 +1,4 @@
-import { Routes, RouterModule} from '@angular/router';
+import { Routes, RouterModule } from '@angular/router';
 import { LoginComponent, RegisterComponent, NonSecretComponent } from './components';
 import { AuthGuardService } from './services';
 
