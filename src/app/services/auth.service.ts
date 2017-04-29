@@ -2,8 +2,8 @@ import { Injectable, Inject } from '@angular/core';
 import { Http, Headers } from '@angular/http';
 import { Observable } from 'rxjs/Rx';
 import { LoginData } from '../models/login-data.interface';
-import { UserData } from '../models/user-data.interface';
 import { RegisterData } from '../models/register-data.interface';
+import { UserInfo } from '../models/user-info.interface';
 
 export interface AuthClientOptions {
   baseUrl: string;
@@ -31,7 +31,7 @@ export class AuthService {
       .map(rsp => rsp.json());
   };
 
-  auth(id_token: string) {
+  auth(id_token: string): Observable<UserInfo> {
     const url = `${this.clientOptions.baseUrl}/tokeninfo`;
     const authBody = {
       id_token: id_token
