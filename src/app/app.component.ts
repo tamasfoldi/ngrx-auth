@@ -9,9 +9,6 @@ import { Observable } from 'rxjs/Rx';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit {
-  title = 'app works!';
-  isAuthed$: Observable<boolean>;
-  authedUsername$: Observable<string>;
 
   constructor() { }
 

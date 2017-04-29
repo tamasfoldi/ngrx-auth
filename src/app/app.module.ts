@@ -1,51 +1,21 @@
-import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { RouterModule } from '@angular/router';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { HttpModule } from '@angular/http';
-import { StoreModule } from '@ngrx/store';
-import { EffectsModule } from '@ngrx/effects';
-import { StoreDevtoolsModule } from '@ngrx/store-devtools';
-import { StoreLogMonitorModule } from '@ngrx/store-log-monitor';
-import { connectToStore, StoreConnectedToRouter } from './router-store';
-
-import reducer from './reducers';
-import { LoginEffects } from './effects/login.effects';
-import { RegisterEffects } from './effects/register.effects';
-import { AuthService, AUTH_CLIENT_PROVIDERS } from './services/auth-service/auth.service';
-import { AuthGuardService } from './services';
 
 import { AppComponent } from './app.component';
-import { LoginComponent } from './components/login/login.component';
-import { RegisterComponent } from './components/register/register.component';
-import { routedComponents, appRoutes } from './app.routes';
-import { NonSecretComponent } from './components/non-secret/non-secret.component';
+
+import { APP_PROVIDERS } from './app.providers';
+import { APP_IMPORTS } from './app.imports';
+import { APP_DECLARATIONS } from './app.declarations';
 
 @NgModule({
   declarations: [
     AppComponent,
-    LoginComponent,
-    RegisterComponent,
-    routedComponents,
-    NonSecretComponent
+    APP_DECLARATIONS
   ],
   imports: [
-    BrowserModule,
-    FormsModule,
-    ReactiveFormsModule,
-    HttpModule,
-    StoreModule.provideStore(reducer),
-    RouterModule.forRoot(connectToStore(appRoutes), { useHash: false }),
-    StoreDevtoolsModule.instrumentOnlyWithExtension(),
-    StoreLogMonitorModule,
-    StoreConnectedToRouter.provideStore(reducer),
-    EffectsModule.run(LoginEffects),
-    EffectsModule.run(RegisterEffects),
+    APP_IMPORTS
   ],
   providers: [
-    AuthService,
-    AuthGuardService,
-    AUTH_CLIENT_PROVIDERS
+    APP_PROVIDERS
   ],
   bootstrap: [AppComponent]
 })
