@@ -16,13 +16,15 @@ export function reducer(state = initialState, action: auth.Actions): State {
   switch (action.type) {
 
     case auth.LOGIN:
-    case auth.REGISTER: {
+    case auth.REGISTER:
+    case auth.LOGOUT: {
       return Object.assign({}, state, { isInProgress: true });
     }
 
     case auth.LOGIN_FAIL:
     case auth.REGISTER_SUCCESS:
-    case auth.REGISTER_FAIL: {
+    case auth.REGISTER_FAIL:
+    case auth.LOGOUT_FAIL: {
       return Object.assign({}, state, { isInProgress: false });
     }
 
@@ -30,7 +32,7 @@ export function reducer(state = initialState, action: auth.Actions): State {
       return Object.assign({}, state, { isInProgress: false, userData: action.payload });
     }
 
-    case auth.LOGOUT: {
+    case auth.LOGOUT_SUCCESS: {
       return Object.assign({}, initialState);
     }
 

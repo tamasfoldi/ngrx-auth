@@ -16,6 +16,7 @@ export class AuthDataStoreService {
   }
 
   delete(): void {
+    console.log('asdf');
     localStorage.removeItem(this.dataKey);
   }
 }

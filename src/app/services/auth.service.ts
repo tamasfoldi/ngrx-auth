@@ -49,6 +49,11 @@ export class AuthService {
     return this.http.post(`${this.clientOptions.baseUrl}/dbconnections/signup`, regData)
       .map(rsp => rsp.json());
   };
+
+  logout(): Observable<void> {
+    return this.http.get(`${this.clientOptions.baseUrl}/v2/logout?client_id=${this.clientOptions.clientID}`)
+      .map(rsp => rsp.json());
+  }
 }
 
 export const AUTH_PROVIDERS = [

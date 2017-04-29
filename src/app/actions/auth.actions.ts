@@ -11,6 +11,8 @@ export const REGISTER = '[AUTH] Register';
 export const REGISTER_SUCCESS = '[AUTH] Register Success';
 export const REGISTER_FAIL = '[AUTH] Register Fail';
 export const LOGOUT = '[AUTH] Logout';
+export const LOGOUT_SUCCESS = '[AUTH] Logout Success';
+export const LOGOUT_FAIL = '[AUTH] Logout Fail';
 
 export class LoginAction implements Action {
   readonly type = LOGIN;
@@ -54,6 +56,18 @@ export class LogoutAction implements Action {
   constructor() { }
 }
 
+export class LogoutSuccessAction implements Action {
+  readonly type = LOGOUT_SUCCESS;
+
+  constructor() { }
+}
+
+export class LogoutFailAction implements Action {
+  readonly type = LOGOUT_FAIL;
+
+  constructor(public payload: ApiError) { }
+}
+
 
 export type Actions
   = LoginAction
@@ -62,4 +76,6 @@ export type Actions
   | RegisterAction
   | RegisterSuccessAction
   | RegisterFailAction
-  | LogoutAction;
+  | LogoutAction
+  | LogoutSuccessAction
+  | LogoutFailAction;

@@ -20,6 +20,6 @@ export class LoginViewComponent implements OnInit {
   ngOnInit() { }
 
   handleLogin() {
-    this.store.dispatch(new auth.LoginAction({ email: 'test@gmail.com', password: 'test' }));
+    this.store.dispatch(new auth.LoginAction({ email: 'test@test.com', password: 'test' }));
   }
 }
