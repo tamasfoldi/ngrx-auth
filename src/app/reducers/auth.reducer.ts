@@ -1,15 +1,18 @@
 /* tslint:disable:no-switch-case-fall-through */
 import { Observable } from 'rxjs/Rx';
 import * as auth from '../actions/auth.actions';
-import { UserData } from '../models/user-data.interface';
+import { UserInfo } from '../models/user-info.interface';
+import { AuthData } from '../models/auth-data.interface';
 
 export interface State {
   isInProgress: boolean;
-  userData: UserData;
+  userData: UserInfo;
+  authData: AuthData;
 }
 const initialState: State = {
   isInProgress: false,
-  userData: null
+  userData: null,
+  authData: null
 };
 
 export function reducer(state = initialState, action: auth.Actions): State {
@@ -28,9 +31,12 @@ export function reducer(state = initialState, action: auth.Actions): State {
       return Object.assign({}, state, { isInProgress: false });
     }
 
-    case auth.LOGIN_SUCCESS:
-    case auth.AUTH_SUCCESS: {
+    case auth.LOGIN_SUCCESS: {
       return Object.assign({}, state, { isInProgress: false, userData: action.payload });
+    }
+
+    case auth.AUTH_SUCCESS: {
+      return Object.assign({}, state, { isInProgress: false, authData: action.payload });
     }
 
     default: {
@@ -40,5 +46,6 @@ export function reducer(state = initialState, action: auth.Actions): State {
 }
 
 export const isInProgress = (state: State) => state.isInProgress;
-export const isAuthed = (state: State) => !state.isInProgress && !!state.userData;
+export const isAuthed = (state: State) => !state.isInProgress && !!state.authData;
+export const isLoggedIn = (state: State) => !state.isInProgress && !!state.userData && !!state.authData;
 

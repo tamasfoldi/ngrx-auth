@@ -1,1 +1,4 @@
-export type ApiError = any;
+export interface ApiError {
+  error: string;
+  error_description: string;
+};

@@ -3,6 +3,7 @@ import { Http, Headers } from '@angular/http';
 import { Observable } from 'rxjs/Rx';
 import { LoginData } from '../models/login-data.interface';
 import { UserData } from '../models/user-data.interface';
+import { RegisterData } from '../models/register-data.interface';
 
 export interface AuthClientOptions {
   baseUrl: string;
@@ -25,17 +26,8 @@ export class AuthService {
       .map(rsp => rsp.json());
   };
 
-  register(email: string, password: string): Observable<{}> {
-    const url = `${this.clientOptions.baseUrl}/dbconnections/signup`;
-
-    const registerBody = {
-      'client_id': this.clientOptions.clientID,
-      'email': email,
-      'password': password,
-      'connection': this.connection
-    };
-
-    return this.http.post(url, registerBody)
+  register(regData: RegisterData): Observable<void> {
+    return this.http.post('register', regData)
       .map(rsp => rsp.json());
   };
 

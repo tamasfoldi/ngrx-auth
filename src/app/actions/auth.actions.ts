@@ -3,7 +3,7 @@ import { LoginData } from '../models/login-data.interface';
 import { ApiError } from '../models/api-error.interface';
 import { RegisterData } from '../models/register-data.interface';
 import { AuthData } from '../models/auth-data.interface';
-import { UserData } from '../models/user-data.interface';
+import { UserInfo } from '../models/user-info.interface';
 
 export const LOGIN = '[AUTH] Login';
 export const LOGIN_SUCCESS = '[AUTH] Login Success';
@@ -28,7 +28,7 @@ export class LoginAction implements Action {
 export class LoginSuccessAction implements Action {
   readonly type = LOGIN_SUCCESS;
 
-  constructor(public payload: UserData) { }
+  constructor(public payload: AuthData) { }
 }
 
 export class LoginFailAction implements Action {
@@ -64,7 +64,7 @@ export class AuthAction implements Action {
 export class AuthSuccessAction implements Action {
   readonly type = AUTH_SUCCESS;
 
-  constructor(public payload: UserData) { }
+  constructor(public payload: UserInfo) { }
 }
 
 export class AuthFailAction implements Action {

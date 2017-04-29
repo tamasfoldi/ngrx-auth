@@ -1,1 +1,4 @@
-export type LoginData = any;
+export interface LoginData {
+  email: string;
+  password: string;
+}

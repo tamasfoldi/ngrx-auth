@@ -1,1 +1,4 @@
-export type RegisterData = any;
+export interface RegisterData {
+  email: string;
+  password: string;
+};
