@@ -5,6 +5,7 @@ import { AUTH_OPTIONS } from './tokens';
 import { LoginData } from '../models/login-data.interface';
 import { RegisterData } from '../models/register-data.interface';
 import { AuthData } from '../models/auth-data.interface';
+import { UserInfo } from '../models/user-info.interface';
 
 export interface AuthClientOptions {
   baseUrl: string;
@@ -52,6 +53,11 @@ export class AuthService {
 
   logout(): Observable<void> {
     return this.http.get(`${this.clientOptions.baseUrl}/v2/logout?client_id=${this.clientOptions.clientID}`)
+      .map(rsp => rsp.json());
+  }
+
+  getUserInfo(access_token: string): Observable<UserInfo> {
+    return this.http.get(`${this.clientOptions.baseUrl}/userinfo`)
       .map(rsp => rsp.json());
   }
 }

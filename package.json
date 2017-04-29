@@ -26,6 +26,7 @@
     "@ngrx/effects": "^2.0.3",
     "@ngrx/router-store": "^1.2.6",
     "@ngrx/store": "^2.2.2",
+    "angular2-jwt": "^0.2.3",
     "core-js": "^2.4.1",
     "rxjs": "^5.3.0",
     "zone.js": "^0.8.9"

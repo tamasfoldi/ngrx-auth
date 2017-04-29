@@ -24,10 +24,11 @@ export class AuthEffects {
       .map(authData => new auth.LoginSuccessAction(authData))
       .catch(error => of(new auth.LoginFailAction(error))));
 
-  @Effect({ dispatch: false }) onLoginSuccess$: Observable<AuthData> = this.actions$
+  @Effect() onLoginSuccess$: Observable<Action> = this.actions$
     .ofType(auth.LOGIN_SUCCESS)
     .map<auth.LoginSuccessAction, AuthData>(toPayload)
-    .do(authData => this.authDataStoreService.data = authData);
+    .do(authData => this.authDataStoreService.data = authData)
+    .map(authData => new auth.GetUserInfoAction(authData));
 
   @Effect() onRegister$: Observable<Action> = this.actions$
     .ofType(auth.REGISTER)
@@ -45,4 +46,11 @@ export class AuthEffects {
   @Effect({ dispatch: false }) onLogoutSuccess$ = this.actions$
     .ofType(auth.LOGOUT_SUCCESS)
     .do(() => this.authDataStoreService.delete());
+
+  @Effect() onGetUserInfo$: Observable<Action> = this.actions$
+    .ofType(auth.GET_USER_INFO)
+    .map<auth.GetUserInfoAction, AuthData>(toPayload)
+    .switchMap(authData => this.authService.getUserInfo(authData.access_token)
+      .map(userInfo => new auth.GetUserInfoSuccessAction(userInfo))
+      .catch(error => of(new auth.GetUserInfoFailAction(error))));
 }
