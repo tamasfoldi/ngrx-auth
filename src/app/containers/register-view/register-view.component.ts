@@ -18,6 +18,8 @@ export class RegisterViewComponent implements OnInit {
 
   ngOnInit() { }
 
-  handleRegister() { }
+  handleRegister() {
+    this.store.dispatch(new auth.RegisterAction({ email: 'test', password: 'test' }));
+  }
 
 }
