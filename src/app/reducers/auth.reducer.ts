@@ -29,7 +29,7 @@ export function reducer(state = initialState, action: auth.Actions): State {
     }
 
     case auth.LOGIN_SUCCESS: {
-      return Object.assign({}, state, { isInProgress: false, userData: action.payload });
+      return Object.assign({}, state, { isInProgress: false, authData: action.payload });
     }
 
     case auth.LOGOUT_SUCCESS: {

@@ -18,7 +18,7 @@ export const APP_IMPORTS = [
 
   StoreModule.provideStore({ auth: reducer }),
   StoreDevtoolsModule.instrumentOnlyWithExtension(),
-  EffectsModule.run(AuthEffects),
+  EffectsModule.runAfterBootstrap(AuthEffects),
 
   MdButtonModule
 ];

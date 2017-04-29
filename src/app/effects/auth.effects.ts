@@ -27,7 +27,7 @@ export class AuthEffects {
   @Effect({ dispatch: false }) onLoginSuccess$: Observable<AuthData> = this.actions$
     .ofType(auth.LOGIN_SUCCESS)
     .map<auth.LoginSuccessAction, AuthData>(toPayload)
-    .do(authData => this.authDataStoreService.data = authData.id_token);
+    .do(authData => this.authDataStoreService.data = authData);
 
   @Effect() onRegister$: Observable<Action> = this.actions$
     .ofType(auth.REGISTER)

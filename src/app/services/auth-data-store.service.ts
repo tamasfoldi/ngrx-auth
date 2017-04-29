@@ -1,27 +1,28 @@
 import { Injectable, Inject } from '@angular/core';
 import { Observable } from 'rxjs/Rx';
-import { AUTH_DATA_STORE_KEY } from './tokens';
+import { AuthData } from '../models/auth-data.interface';
 
 @Injectable()
 export class AuthDataStoreService {
 
-  constructor( @Inject(AUTH_DATA_STORE_KEY) private dataKey) { }
+  constructor() { }
 
-  get data(): string {
-    return localStorage.getItem(this.dataKey);
+  get data(): AuthData {
+    return localStorage.getItem('id_token') !== 'null' && localStorage.getItem('access_token') !== 'null' ?
+      {
+        id_token: localStorage.getItem('id_token'),
+        access_token: localStorage.getItem('access_token')
+      } : null;
   }
 
-  set data(data: string) {
-    localStorage.setItem(this.dataKey, data);
+  set data(data: AuthData) {
+    localStorage.setItem('id_token', data.id_token);
+    localStorage.setItem('access_token', data.access_token);
   }
 
   delete(): void {
-    console.log('asdf');
-    localStorage.removeItem(this.dataKey);
+    localStorage.removeItem('id_token');
+    localStorage.removeItem('access_token');
   }
 }
 
-export const AUTH_DATA_STORE_PROVIDERS = [
-  { provide: AUTH_DATA_STORE_KEY, useValue: 'id_token' },
-  AuthDataStoreService
-];
