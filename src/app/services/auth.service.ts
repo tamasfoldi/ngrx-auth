@@ -30,15 +30,6 @@ export class AuthService {
     return this.http.post('register', regData)
       .map(rsp => rsp.json());
   };
-
-  auth(id_token: string): Observable<UserInfo> {
-    const url = `${this.clientOptions.baseUrl}/tokeninfo`;
-    const authBody = {
-      id_token: id_token
-    };
-    return this.http.post(url, authBody)
-      .map(rsp => rsp.json());
-  }
 }
 
 export let AUTH_CLIENT_PROVIDERS = [{
