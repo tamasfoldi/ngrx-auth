@@ -1,10 +1,10 @@
-import { NgrxAuthPage } from './app.po';
+import { TestprojPage } from './app.po';
 
-describe('ngrx-auth App', function() {
-  let page: NgrxAuthPage;
+describe('testproj App', () => {
+  let page: TestprojPage;
 
   beforeEach(() => {
-    page = new NgrxAuthPage();
+    page = new TestprojPage();
   });
 
   it('should display message saying app works', () => {

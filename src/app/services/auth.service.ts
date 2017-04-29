@@ -1,8 +1,8 @@
 import { Injectable, Inject } from '@angular/core';
 import { Http, Headers } from '@angular/http';
 import { Observable } from 'rxjs/Rx';
-import 'rxjs/add/operator/map';
-import 'rxjs/add/operator/catch';
+import { LoginData } from '../models/login-data.interface';
+import { UserData } from '../models/user-data.interface';
 
 export interface AuthClientOptions {
   baseUrl: string;
@@ -16,28 +16,13 @@ export let AUTH_CLIENT_OPTIONS: AuthClientOptions = {
 
 @Injectable()
 export class AuthService {
-  private headers = new Headers({
-    'Content-Type': 'application/json'
-  });
-
   private connection = 'Username-Password-Authentication';
 
   constructor(private http: Http, @Inject(AUTH_CLIENT_OPTIONS) private clientOptions: AuthClientOptions) { }
 
-  login(username: string, password: string): Observable<{}> {
-    const url = `${this.clientOptions.baseUrl}/oauth/ro`;
-
-    const loginBody = {
-      'client_id': this.clientOptions.clientID,
-      'username': username,
-      'password': password,
-      'connection': this.connection,
-      'scope': 'openid'
-    };
-
-    return this.http.post(url, loginBody, { headers: this.headers })
-      .map(rsp => rsp.json())
-      .catch(error => this.handleError(JSON.parse(error._body)));
+  login(loginData: LoginData): Observable<UserData> {
+    return this.http.post('login', loginData)
+      .map(rsp => rsp.json());
   };
 
   register(email: string, password: string): Observable<{}> {
@@ -50,9 +35,8 @@ export class AuthService {
       'connection': this.connection
     };
 
-    return this.http.post(url, registerBody, { headers: this.headers })
-      .map(rsp => rsp.json())
-      .catch(error => this.handleError(JSON.parse(error._body)));
+    return this.http.post(url, registerBody)
+      .map(rsp => rsp.json());
   };
 
   auth(id_token: string) {
@@ -60,14 +44,8 @@ export class AuthService {
     const authBody = {
       id_token: id_token
     };
-    return this.http.post(url, authBody, { headers: this.headers })
-      .map(rsp => rsp.json())
-      .catch(error => this.handleError(JSON.parse(error.body)));
-  }
-
-  private handleError(error: any): Promise<any> {
-    console.error('An error occurred', JSON.stringify(error));
-    return Promise.reject(error.message || error);
+    return this.http.post(url, authBody)
+      .map(rsp => rsp.json());
   }
 }
 

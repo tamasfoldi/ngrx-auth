@@ -1,6 +1,6 @@
 import { browser, element, by } from 'protractor';
 
-export class NgrxAuthPage {
+export class TestprojPage {
   navigateTo() {
     return browser.get('/');
   }

@@ -3,23 +3,13 @@ import { LoginComponent, RegisterComponent, NonSecretComponent } from './compone
 import { AuthGuardService } from './services';
 
 export const appRoutes: Routes = [
-  {
-    path: '',
-    redirectTo: 'auth',
-    pathMatch: 'full'
-  },
-  {
-    path: 'auth',
-    children: [
-      { path: '', redirectTo: 'login', pathMatch: 'full' },
-      { path: 'login', component: LoginComponent },
-      { path: 'register', component: RegisterComponent }
-    ]
-  },
-  {
-    path: 'non-secret',
-    component: NonSecretComponent
-  },
+  { path: '', redirectTo: 'login' },
+
+  { path: '', redirectTo: 'login', pathMatch: 'full' },
+  { path: 'login', component: LoginComponent },
+  { path: 'register', component: RegisterComponent },
+
+  { path: 'non-secret', component: NonSecretComponent },
   {
     path: 'secret',
     loadChildren: 'app/secret-module/secret-module.module#SecretModuleModule',
