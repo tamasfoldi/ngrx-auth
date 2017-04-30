@@ -34,7 +34,7 @@ export class AuthEffects {
     .ofType(auth.REGISTER)
     .map(action => action.payload)
     .switchMap(regData => this.authService.register(regData)
-      .map(() => new auth.RegisterSuccessAction())
+      .map(registerResponse => new auth.RegisterSuccessAction(registerResponse))
       .catch(error => of(new auth.RegisterFailAction(error))));
 
   @Effect() onLogout$ = this.actions$

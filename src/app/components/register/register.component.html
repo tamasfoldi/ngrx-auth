@@ -1,0 +1,10 @@
+<form [formGroup]="registerForm" (ngSubmit)="onRegister.emit(registerForm.value)" ngNativeValidate>
+  <md-input-container>
+    <input mdInput placeholder="Email" required type="email" formControlName="email">
+  </md-input-container>
+  <md-input-container>
+    <input mdInput placeholder="Password" required formControlName="password" type="password" minlength="6" #password>
+    <md-hint align="end">{{password.value.length}} / 6</md-hint>
+  </md-input-container>
+  <button md-raised-button type="submit">Register</button>
+</form>

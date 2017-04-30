@@ -6,6 +6,7 @@ import { LoginData } from '../models/login-data.interface';
 import { RegisterData } from '../models/register-data.interface';
 import { AuthData } from '../models/auth-data.interface';
 import { UserInfo } from '../models/user-info.interface';
+import { RegisterResponse } from '../models/register-response.interface';
 
 export interface AuthClientOptions {
   baseUrl: string;
@@ -39,15 +40,15 @@ export class AuthService {
       .map(rsp => rsp.json());
   };
 
-  register(regData: RegisterData): Observable<void> {
+  register(regData: RegisterData): Observable<RegisterResponse> {
     const body = {
       client_id: this.clientOptions.clientID,
-      username: regData.email,
+      email: regData.email,
       password: regData.password,
       connection: this.clientOptions.connection
     };
 
-    return this.http.post(`${this.clientOptions.baseUrl}/dbconnections/signup`, regData)
+    return this.http.post(`${this.clientOptions.baseUrl}/dbconnections/signup`, body)
       .map(rsp => rsp.json());
   };
 

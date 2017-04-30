@@ -4,6 +4,7 @@ import { ApiError } from '../models/api-error.interface';
 import { RegisterData } from '../models/register-data.interface';
 import { AuthData } from '../models/auth-data.interface';
 import { UserInfo } from '../models/user-info.interface';
+import { RegisterResponse } from '../models/register-response.interface';
 
 export const LOGIN = '[AUTH] Login';
 export const LOGIN_SUCCESS = '[AUTH] Login Success';
@@ -46,7 +47,7 @@ export class RegisterAction implements Action {
 export class RegisterSuccessAction implements Action {
   readonly type = REGISTER_SUCCESS;
 
-  constructor() { }
+  constructor(public payload: RegisterResponse) { }
 }
 
 export class RegisterFailAction implements Action {

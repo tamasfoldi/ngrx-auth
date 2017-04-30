@@ -5,11 +5,13 @@ import { AppComponent } from './app.component';
 import { APP_PROVIDERS } from './app.providers';
 import { APP_IMPORTS } from './app.imports';
 import { APP_DECLARATIONS } from './app.declarations';
+import { RegisterComponent } from './components/register/register.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    APP_DECLARATIONS
+    APP_DECLARATIONS,
+    RegisterComponent
   ],
   imports: [
     APP_IMPORTS

@@ -5,6 +5,7 @@ import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Rx';
 import { State } from '../../reducers/auth.reducer';
 import * as auth from '../../actions/auth.actions';
+import { RegisterData } from '../../models/register-data.interface';
 
 @Component({
   selector: 'app-register-view',
@@ -18,8 +19,8 @@ export class RegisterViewComponent implements OnInit {
 
   ngOnInit() { }
 
-  handleRegister() {
-    this.store.dispatch(new auth.RegisterAction({ email: 'test', password: 'test' }));
+  handleRegister(regData: RegisterData) {
+    this.store.dispatch(new auth.RegisterAction(regData));
   }
 
 }
