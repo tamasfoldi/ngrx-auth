@@ -6,12 +6,14 @@ import { APP_PROVIDERS } from './app.providers';
 import { APP_IMPORTS } from './app.imports';
 import { APP_DECLARATIONS } from './app.declarations';
 import { RegisterComponent } from './components/register/register.component';
+import { LoginComponent } from './components/login/login.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     APP_DECLARATIONS,
-    RegisterComponent
+    RegisterComponent,
+    LoginComponent
   ],
   imports: [
     APP_IMPORTS

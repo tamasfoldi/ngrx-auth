@@ -14,8 +14,7 @@ import { RegisterData } from '../../models/register-data.interface';
 })
 export class RegisterViewComponent implements OnInit {
 
-  constructor(private store: Store<State>) {
-  }
+  constructor(private store: Store<State>) { }
 
   ngOnInit() { }
 
