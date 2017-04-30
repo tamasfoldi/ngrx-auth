@@ -1,6 +1,7 @@
 import { Injectable, Inject } from '@angular/core';
-import { Http, Headers } from '@angular/http';
+import { Http, Headers, RequestOptions } from '@angular/http';
 import { Observable } from 'rxjs/Rx';
+import { AuthHttp, AuthConfig } from 'angular2-jwt';
 import { AUTH_OPTIONS } from './tokens';
 import { LoginData } from '../models/login-data.interface';
 import { RegisterData } from '../models/register-data.interface';
@@ -25,7 +26,11 @@ export const DEFAULT_AUTH_OPTIONS: AuthClientOptions = {
 @Injectable()
 export class AuthService {
 
-  constructor(private http: Http, @Inject(AUTH_OPTIONS) private clientOptions: AuthClientOptions) { }
+  constructor(
+    private http: Http,
+    private authHttp: AuthHttp,
+    @Inject(AUTH_OPTIONS) private clientOptions: AuthClientOptions
+  ) { }
 
   login(loginData: LoginData): Observable<AuthData> {
     const body = {
@@ -58,12 +63,24 @@ export class AuthService {
   }
 
   getUserInfo(access_token: string): Observable<UserInfo> {
-    return this.http.get(`${this.clientOptions.baseUrl}/userinfo`)
+    const headers: Headers = new Headers();
+    headers.append('Authorization', `Bearer ${access_token}`)
+    return this.http.get(`${this.clientOptions.baseUrl}/userinfo`, { headers: headers }
+    )
       .map(rsp => rsp.json());
   }
 }
 
+export function authHttpServiceFactory(http: Http, options: RequestOptions) {
+  return new AuthHttp(new AuthConfig(), http, options);
+}
+
 export const AUTH_PROVIDERS = [
   { provide: AUTH_OPTIONS, useValue: DEFAULT_AUTH_OPTIONS },
-  AuthService
+  AuthService,
+  {
+    provide: AuthHttp,
+    useFactory: authHttpServiceFactory,
+    deps: [Http, RequestOptions]
+  }
 ];
