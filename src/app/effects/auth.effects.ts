@@ -2,6 +2,7 @@
 import { Observable } from 'rxjs/Observable';
 import { of } from 'rxjs/observable/of';
 import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
 import { Actions, Effect, toPayload } from '@ngrx/effects';
 import { Action } from '@ngrx/store';
 import { AuthService } from '../services/auth.service';
@@ -14,7 +15,8 @@ export class AuthEffects {
   constructor(
     private actions$: Actions,
     private authService: AuthService,
-    private authDataStoreService: AuthDataStoreService
+    private authDataStoreService: AuthDataStoreService,
+    private router: Router
   ) { }
 
   @Effect() onLogin$: Observable<Action> = this.actions$
@@ -45,12 +47,14 @@ export class AuthEffects {
 
   @Effect({ dispatch: false }) onLogoutSuccess$ = this.actions$
     .ofType(auth.LOGOUT_SUCCESS)
-    .do(() => this.authDataStoreService.delete());
+    .do(() => this.authDataStoreService.delete())
+    .do(() => this.router.navigate(['/']));
 
   @Effect() onGetUserInfo$: Observable<Action> = this.actions$
     .ofType(auth.GET_USER_INFO)
     .map<auth.GetUserInfoAction, AuthData>(toPayload)
     .switchMap(authData => this.authService.getUserInfo(authData.access_token)
       .map(userInfo => new auth.GetUserInfoSuccessAction(userInfo))
-      .catch(error => of(new auth.GetUserInfoFailAction(error))));
+      .catch(error => of(new auth.GetUserInfoFailAction(error))
+        .merge(of(new auth.LogoutAction()))));
 }

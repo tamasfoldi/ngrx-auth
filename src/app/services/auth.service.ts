@@ -1,5 +1,5 @@
 import { Injectable, Inject } from '@angular/core';
-import { Http, Headers, RequestOptions } from '@angular/http';
+import { Http, Headers, RequestOptions, Response } from '@angular/http';
 import { Observable } from 'rxjs/Rx';
 import { AuthHttp, AuthConfig } from 'angular2-jwt';
 import { AUTH_OPTIONS } from './tokens';
@@ -57,9 +57,9 @@ export class AuthService {
       .map(rsp => rsp.json());
   };
 
-  logout(): Observable<void> {
-    return this.http.get(`${this.clientOptions.baseUrl}/v2/logout?client_id=${this.clientOptions.clientID}`)
-      .map(rsp => rsp.json());
+  logout(): Observable<Response> {
+    return this.http.get(`${this.clientOptions.baseUrl}/v2/logout?client_id=${this.clientOptions.clientID}`);
+    // .map(rsp => rsp.json())
   }
 
   getUserInfo(access_token: string): Observable<UserInfo> {

@@ -5,13 +5,13 @@ import { Observable } from 'rxjs/Observable';
 import { State, isAuthed } from '../reducers/auth.reducer';
 
 @Injectable()
-export class AuthGuard implements CanActivate {
+export class SecureGuard implements CanActivate {
+
   constructor(private store: Store<State>, private router: Router) { }
   canActivate(
     next: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean {
     return this.store.select(isAuthed)
-      .map(isAuthed => !isAuthed)
-      .do(notAuthed => !notAuthed ? this.router.navigate(['/secure']) : null);
+      .do(isAuthed => !isAuthed ? this.router.navigate(['/auth']) : null);
   }
 }
