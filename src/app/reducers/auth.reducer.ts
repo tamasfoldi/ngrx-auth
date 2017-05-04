@@ -53,5 +53,6 @@ export function reducer(state = initialState, action: auth.Actions): State {
 }
 
 export const isInProgress = (state: State) => state.isInProgress;
-export const isAuthed = (state: State) => state.authData && tokenNotExpired();
-export const isLoggedIn = (state: State) => state.authData && state.userInfo && tokenNotExpired();
+export const isAuthed = (state: State) => !!state.authData && tokenNotExpired();
+export const isLoggedIn = (state: State) => !!state.authData && !!state.userInfo && tokenNotExpired();
+export const getUserInfo = (state: State) => state.userInfo;

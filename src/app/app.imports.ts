@@ -18,7 +18,7 @@ export const APP_IMPORTS = [
   HttpModule,
   routing,
 
-  StoreModule.provideStore({ auth: reducer }),
+  StoreModule.provideStore(reducer),
   StoreDevtoolsModule.instrumentOnlyWithExtension(),
   EffectsModule.runAfterBootstrap(AuthEffects),
 
