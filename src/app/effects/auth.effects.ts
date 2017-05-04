@@ -15,8 +15,7 @@ export class AuthEffects {
   constructor(
     private actions$: Actions,
     private authService: AuthService,
-    private authDataStoreService: AuthDataStoreService,
-    private router: Router
+    private authDataStoreService: AuthDataStoreService
   ) { }
 
   @Effect() onLogin$: Observable<Action> = this.actions$
@@ -47,8 +46,7 @@ export class AuthEffects {
 
   @Effect({ dispatch: false }) onLogoutSuccess$ = this.actions$
     .ofType(auth.LOGOUT_SUCCESS)
-    .do(() => this.authDataStoreService.delete())
-    .do(() => this.router.navigate(['/']));
+    .do(() => this.authDataStoreService.delete());
 
   @Effect() onGetUserInfo$: Observable<Action> = this.actions$
     .ofType(auth.GET_USER_INFO)
