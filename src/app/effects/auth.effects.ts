@@ -9,6 +9,7 @@ import { AuthService } from '../services/auth.service';
 import { AuthDataStoreService } from 'app/services/auth-data-store.service';
 import * as auth from '../actions/auth.actions';
 import { AuthData } from '../models/auth-data.interface';
+import { ApiError } from '../models/api-error.interface';
 
 @Injectable()
 export class AuthEffects {
@@ -53,6 +54,16 @@ export class AuthEffects {
     .map<auth.GetUserInfoAction, AuthData>(toPayload)
     .switchMap(authData => this.authService.getUserInfo(authData.access_token)
       .map(userInfo => new auth.GetUserInfoSuccessAction(userInfo))
-      .catch(error => of(new auth.GetUserInfoFailAction(error))
-        .merge(of(new auth.LogoutAction()))));
+      .catch(error => of(new auth.GetUserInfoFailAction(error))));
+
+  @Effect() onFail$: Observable<Action> = this.actions$
+    .ofType(auth.GET_USER_INFO_FAIL,
+    auth.LOGIN_FAIL,
+    auth.LOGOUT_FAIL,
+    auth.REGISTER_FAIL)
+    .map(toPayload)
+    .map(error => error.status)
+    .filter(code => code === 401)
+    .map(() => new auth.LogoutAction());
+
 }
