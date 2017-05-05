@@ -1,6 +1,5 @@
 import { Injectable, Inject } from '@angular/core';
 import { Observable } from 'rxjs/Rx';
-import { AuthConfigConsts } from 'angular2-jwt';
 import { AuthData } from '../models/auth-data.interface';
 import { AUTH_DATA_STORE_CONFIG } from './tokens';
 
@@ -10,7 +9,7 @@ export interface AuthDataStoreConfig {
 }
 
 export const DEFAUL_AUTH_DATA_STORE_CONFIG: AuthDataStoreConfig = {
-  ID_TOKEN_NAME: AuthConfigConsts.DEFAULT_TOKEN_NAME,
+  ID_TOKEN_NAME: 'token',
   ACCESS_TOKEN_NAME: 'access_token'
 };
 
