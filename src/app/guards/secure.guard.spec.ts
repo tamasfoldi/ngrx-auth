@@ -8,8 +8,4 @@ describe('SecureGuard', () => {
       providers: [SecureGuard]
     });
   });
-
-  it('should ...', inject([SecureGuard], (guard: SecureGuard) => {
-    expect(guard).toBeTruthy();
-  }));
 });

@@ -5,7 +5,7 @@ import { Observable } from 'rxjs/Rx';
 import { tokenNotExpired, AuthConfigConsts } from 'angular2-jwt';
 import { State } from './reducers/auth.reducer';
 import * as auth from './actions/auth.actions';
-import { AuthDataStoreService } from 'app/services/auth-data-store.service';
+import { AuthDataStoreService } from './services/auth-data-store.service';
 
 @Component({
   selector: 'app-root',
