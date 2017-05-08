@@ -64,7 +64,7 @@ export class AuthService {
 
   getUserInfo(access_token: string): Observable<UserInfo> {
     const headers: Headers = new Headers();
-    headers.append('Authorization', `Bearer ${access_token}`)
+    headers.append('Authorization', `Bearer ${access_token}`);
     return this.http.get(`${this.clientOptions.baseUrl}/userinfo`, { headers: headers }
     )
       .map(rsp => rsp.json());
