@@ -59,7 +59,6 @@ export class AuthService {
 
   logout(): Observable<Response> {
     return this.http.get(`${this.clientOptions.baseUrl}/v2/logout?client_id=${this.clientOptions.clientID}`);
-    // .map(rsp => rsp.json())
   }
 
   getUserInfo(access_token: string): Observable<UserInfo> {
