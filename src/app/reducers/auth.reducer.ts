@@ -10,7 +10,7 @@ export interface State {
   authData: AuthData;
   userInfo: UserInfo;
 }
-const initialState: State = {
+export const initialState: State = {
   isInProgress: false,
   authData: null,
   userInfo: null
